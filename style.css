@@ -34,7 +34,7 @@
 }
 
 /* ==========================================
-   3. ESTILOS GENERALES & SOPORTE TÁCTIL SAFARI
+   3. ESTILOS GENERALES
    ========================================== */
 * {
   margin: 0;
@@ -60,27 +60,6 @@ body {
 
 button, a, .window-header, .desktop-icon, .taskbar-tab {
   cursor: url('images/mat pag/cursor.png') 0 0, url('images/mat pag/cursor.svg') 0 0, pointer;
-}
-
-/* COMPATIBILIDAD UNIVERSAL TOUCH / CLIC PARA SAFARI IPHONE */
-.clickable-card, 
-.sub-window,
-.modal-close,
-.close-btn,
-[onclick],
-[role="button"] {
-  cursor: pointer !important;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  touch-action: manipulation;
-}
-
-/* CORRECCIÓN GLOBAL DE RENDERIZADO PARA SVG EN NAVEGADORES MÓVILES */
-img[src$=".svg"], 
-object[type="image/svg+xml"],
-picture img {
-  display: inline-block;
-  max-width: 100%;
-  height: auto;
 }
 
 /* ==========================================
@@ -171,16 +150,12 @@ picture img {
   z-index: 1;
   pointer-events: auto;
   user-select: none;
-  /* CAMBIO: Se ajusta la transformación para evitar que se salga en pantallas chicas */
-  transform: translate(5%, 5%);
+  transform: translate(18%, 10%);
   display: inline-block;
-  max-width: 50vw;
 }
 
 .bg-illustration {
-  /* CAMBIO: Se usa max-width responsivo en lugar de width fijo de 720px */
-  width: 100%;
-  max-width: 550px;
+  width: 720px;
   height: auto;
   opacity: 0.85;
   transform-origin: bottom center;
@@ -1352,15 +1327,13 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
 }
 
 @media (max-width: 600px) {
-  .bg-illustration-wrapper {
-    /* CAMBIO: En móviles centramos levemente el desfasaje */
-    transform: translate(0, 0);
+  .bg-illustration {
+    width: 380px;
   }
 
-  .bg-illustration {
-    /* CAMBIO: Ancho responsivo adaptable a cualquier teléfono */
-    width: 75vw;
-    max-width: 320px;
+  .profile-header-grid {
+    flex-direction: column;
+    text-align: center;
   }
 
   .desktop-icons {
@@ -1368,10 +1341,7 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    /* CAMBIO: Asegura que los iconos no queden tapados por la barra inferior */
-    padding-bottom: 60px;
   }
-}
 
   .window-modal {
     min-width: 280px;
@@ -1393,3 +1363,4 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   .contact-main-value {
     font-size: 1.6rem;
   }
+}
