@@ -1364,3 +1364,11 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
     font-size: 1.6rem;
   }
 }
+/* Compatibilidad para eventos touch/click en iOS Safari */
+.clickable-card, 
+.sub-window,
+.modal-close,
+[onclick] {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
