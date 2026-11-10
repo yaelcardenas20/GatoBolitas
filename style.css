@@ -34,7 +34,7 @@
 }
 
 /* ==========================================
-   3. ESTILOS GENERALES
+   3. ESTILOS GENERALES & SOPORTE TÁCTIL SAFARI
    ========================================== */
 * {
   margin: 0;
@@ -60,6 +60,27 @@ body {
 
 button, a, .window-header, .desktop-icon, .taskbar-tab {
   cursor: url('images/mat pag/cursor.png') 0 0, url('images/mat pag/cursor.svg') 0 0, pointer;
+}
+
+/* COMPATIBILIDAD UNIVERSAL TOUCH / CLIC PARA SAFARI IPHONE */
+.clickable-card, 
+.sub-window,
+.modal-close,
+.close-btn,
+[onclick],
+[role="button"] {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  touch-action: manipulation;
+}
+
+/* CORRECCIÓN GLOBAL DE RENDERIZADO PARA SVG EN NAVEGADORES MÓVILES */
+img[src$=".svg"], 
+object[type="image/svg+xml"],
+picture img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
 }
 
 /* ==========================================
@@ -1363,12 +1384,4 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   .contact-main-value {
     font-size: 1.6rem;
   }
-}
-/* Compatibilidad para eventos touch/click en iOS Safari */
-.clickable-card, 
-.sub-window,
-.modal-close,
-[onclick] {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
 }
