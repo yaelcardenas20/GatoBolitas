@@ -34,7 +34,7 @@
 }
 
 /* ==========================================
-   3. ESTILOS GENERALES & SOPORTE TÁCTIL SAFARI
+   3. ESTILOS GENERALES
    ========================================== */
 * {
   margin: 0;
@@ -60,24 +60,6 @@ body {
 
 button, a, .window-header, .desktop-icon, .taskbar-tab {
   cursor: url('images/mat pag/cursor.png') 0 0, url('images/mat pag/cursor.svg') 0 0, pointer;
-}
-
-/* REFUERZO DE INTERACCIÓN EN BOTONES DE CONTROL PARA SAFARI IPHONE */
-.window-controls button, 
-.close-btn {
-  touch-action: auto !important;
-  pointer-events: auto !important;
-  position: relative;
-  z-index: 10;
-}
-
-/* CORRECCIÓN GLOBAL DE RENDERIZADO PARA SVG EN NAVEGADORES MÓVILES */
-img[src$=".svg"], 
-object[type="image/svg+xml"],
-picture img {
-  display: inline-block;
-  max-width: 100%;
-  height: auto;
 }
 
 /* ==========================================
