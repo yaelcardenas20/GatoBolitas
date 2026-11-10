@@ -2,7 +2,6 @@
    1. REGISTRO DE TIPOGRAFÍAS LOCALES
    ========================================== */
 @font-face {
-  font-display: swap;
   font-family: 'Basenji';
   src: url('fonts/Basenji-SemiBold.ttf') format('truetype');
   font-weight: 600;
@@ -10,7 +9,6 @@
 }
 
 @font-face {
-  font-display: swap;
   font-family: 'BebasNeue';
   src: url('fonts/BebasNeue-Regular.ttf') format('truetype');
   font-weight: normal;
@@ -18,7 +16,6 @@
 }
 
 @font-face {
-  font-display: swap;
   font-family: 'RobotoLocal';
   src: url('fonts/Roboto-VariableFont_wdth,wght.ttf') format('truetype');
   font-weight: 100 900;
@@ -48,7 +45,6 @@
 html, body {
   width: 100vw;
   height: 100vh;
-  height: 100dvh;
   overflow: hidden;
   position: relative;
 }
@@ -75,14 +71,12 @@ button, a, .window-header, .desktop-icon, .taskbar-tab {
   left: 0;
   width: 100vw;
   height: 100vh;
-  height: 100dvh;
   background-color: var(--gris-azulado);
   z-index: 99999;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  -webkit-user-select: none;
   user-select: none;
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
@@ -146,7 +140,6 @@ button, a, .window-header, .desktop-icon, .taskbar-tab {
   left: 0;
   width: 100vw;
   height: 100vh;
-  height: 100dvh;
   z-index: 1;
 }
 
@@ -156,7 +149,6 @@ button, a, .window-header, .desktop-icon, .taskbar-tab {
   right: 0;
   z-index: 1;
   pointer-events: auto;
-  -webkit-user-select: none;
   user-select: none;
   transform: translate(18%, 10%);
   display: inline-block;
@@ -224,7 +216,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   padding: 30px;
   width: 100vw;
   height: calc(100vh - 50px);
-  height: calc(100dvh - 50px);
   position: relative;
   z-index: 2;
   overflow: hidden;
@@ -241,7 +232,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   flex-wrap: wrap;
   align-content: flex-start;
   max-height: calc(100vh - 120px);
-  max-height: calc(100dvh - 120px);
   gap: 20px 25px;
   align-items: flex-start;
 }
@@ -311,7 +301,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   border-radius: 2px;
   overflow: hidden;
   position: absolute;
-  -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   transition: box-shadow 0.2s ease;
   transform-style: preserve-3d;
@@ -320,7 +309,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   min-height: 200px;
   max-width: calc(100vw - 20px);
   max-height: calc(100vh - 65px);
-  max-height: calc(100dvh - 65px);
 }
 
 .window-modal:hover {
@@ -346,7 +334,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   left: 5px !important;
   width: calc(100vw - 10px) !important;
   height: calc(100vh - 60px) !important;
-  height: calc(100dvh - 60px) !important;
   max-width: none !important;
   max-height: none !important;
   margin: 0 !important;
@@ -362,7 +349,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid var(--turquesa);
-  -webkit-user-select: none;
   user-select: none;
   touch-action: none;
   gap: 10px;
@@ -572,7 +558,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   border: 1px solid var(--turquesa);
   padding: 15px;
   background-color: rgba(47, 45, 59, 0.35);
-  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
 }
 
@@ -594,7 +579,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   border: 1px solid var(--turquesa);
   padding: 12px;
   background-color: rgba(47, 45, 59, 0.35);
-  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
 }
 
@@ -660,7 +644,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   display: flex;
   flex-direction: column;
   gap: 10px;
-  -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   box-shadow: 3px 3px 0px var(--casi-negro-solido);
 }
@@ -804,7 +787,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   display: flex;
   flex-direction: column;
   gap: 6px;
-  -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   box-shadow: 3px 3px 0px var(--casi-negro-solido);
 }
@@ -888,7 +870,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   flex-direction: column;
   gap: 4px;
   box-shadow: 3px 3px 0px var(--casi-negro-solido);
-  -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
 }
 
@@ -1003,7 +984,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
 }
 
 .clickable-card {
-  -webkit-user-select: none;
   user-select: none;
   cursor: pointer;
 }
@@ -1199,9 +1179,7 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   left: 0;
   width: 100vw;
   height: 100vh;
-  height: 100dvh;
   background-color: rgba(15, 15, 18, 0.85);
-  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   z-index: 99990;
   display: flex;
@@ -1222,7 +1200,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   width: 90%;
   max-width: 680px;
   max-height: 85vh;
-  max-height: 85dvh;
   display: flex;
   flex-direction: column;
   transform: scale(0.85) perspective(800px) rotateX(15deg);
@@ -1272,7 +1249,6 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   width: 100%;
   height: 50px;
   background-color: rgba(224, 223, 237, 0.92);
-  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   color: var(--casi-negro-solido);
   padding: 4px 10px;
@@ -1387,20 +1363,4 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   .contact-main-value {
     font-size: 1.6rem;
   }
-}
-/* ==========================================
-   8. ENDURECIMIENTO (PC + MÓVIL) — solo añade, no sustituye
-   ========================================== */
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-button, a, .clickable-card, .desktop-icon, .window-header { -webkit-tap-highlight-color: transparent; }
-.window-body, .lightbox-body { overscroll-behavior: contain; }
-img, video { max-width: 100%; }
-:focus-visible { outline: 2px dashed var(--turquesa); outline-offset: 2px; }
-.boot-screen:focus-visible { outline-offset: -6px; }
-@media (pointer: coarse) {
-  .window-controls button { min-width: 32px; height: 32px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .bg-illustration { animation: none; }
-  .window-modal.active, .window-modal.is-closing { animation-duration: 0.01ms !important; }
 }
