@@ -171,12 +171,16 @@ picture img {
   z-index: 1;
   pointer-events: auto;
   user-select: none;
-  transform: translate(18%, 10%);
+  /* CAMBIO: Se ajusta la transformación para evitar que se salga en pantallas chicas */
+  transform: translate(5%, 5%);
   display: inline-block;
+  max-width: 50vw;
 }
 
 .bg-illustration {
-  width: 720px;
+  /* CAMBIO: Se usa max-width responsivo en lugar de width fijo de 720px */
+  width: 100%;
+  max-width: 550px;
   height: auto;
   opacity: 0.85;
   transform-origin: bottom center;
@@ -1348,13 +1352,15 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
 }
 
 @media (max-width: 600px) {
-  .bg-illustration {
-    width: 380px;
+  .bg-illustration-wrapper {
+    /* CAMBIO: En móviles centramos levemente el desfasaje */
+    transform: translate(0, 0);
   }
 
-  .profile-header-grid {
-    flex-direction: column;
-    text-align: center;
+  .bg-illustration {
+    /* CAMBIO: Ancho responsivo adaptable a cualquier teléfono */
+    width: 75vw;
+    max-width: 320px;
   }
 
   .desktop-icons {
@@ -1362,7 +1368,10 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    /* CAMBIO: Asegura que los iconos no queden tapados por la barra inferior */
+    padding-bottom: 60px;
   }
+}
 
   .window-modal {
     min-width: 280px;
@@ -1384,4 +1393,3 @@ h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-s
   .contact-main-value {
     font-size: 1.6rem;
   }
-}
