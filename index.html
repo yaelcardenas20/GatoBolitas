@@ -149,10 +149,10 @@
       <div class="window-header" onmousedown="startDragging(event, 'window-about')" ontouchstart="startDraggingTouch(event, 'window-about')">
         <span class="window-title">Sobre Mí</span>
         <div class="window-controls">
-          <button onclick="minimizeWindow('window-about')">_</button>
-          <button onclick="toggleMaximize('window-about')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-about')">X</button>
-        </div>
+  <button onclick="event.stopPropagation(); minimizeWindow('window-about')">_</button>
+  <button onclick="event.stopPropagation(); toggleMaximize('window-about')">□</button>
+  <button class="close-btn" onclick="event.stopPropagation(); closeWindow('window-about')">X</button>
+</div>
       </div>
       <div class="window-body about-profile-body">
         <div class="profile-header-grid">
@@ -204,10 +204,10 @@
       <div class="window-header" onmousedown="startDragging(event, 'window-tools')" ontouchstart="startDraggingTouch(event, 'window-tools')">
         <span class="window-title">Herramientas & Software</span>
         <div class="window-controls">
-          <button onclick="minimizeWindow('window-tools')">_</button>
-          <button onclick="toggleMaximize('window-tools')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-tools')">X</button>
-        </div>
+  <button onclick="event.stopPropagation(); minimizeWindow('window-about')">_</button>
+  <button onclick="event.stopPropagation(); toggleMaximize('window-about')">□</button>
+  <button class="close-btn" onclick="event.stopPropagation(); closeWindow('window-about')">X</button>
+</div>
       </div>
       <div class="window-body tools-container-body">
         
@@ -519,11 +519,11 @@
     <section id="window-experience" class="window window-modal anim-timeline-slide" onmousedown="bringToFront('window-experience')" ontouchstart="bringToFront('window-experience')">
       <div class="window-header" onmousedown="startDragging(event, 'window-experience')" ontouchstart="startDraggingTouch(event, 'window-experience')">
         <span class="window-title">Experiencia & Formación Académica</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-experience')">_</button>
-          <button onclick="toggleMaximize('window-experience')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-experience')">X</button>
-        </div>
+       <div class="window-controls">
+  <button onclick="event.stopPropagation(); minimizeWindow('window-about')">_</button>
+  <button onclick="event.stopPropagation(); toggleMaximize('window-about')">□</button>
+  <button class="close-btn" onclick="event.stopPropagation(); closeWindow('window-about')">X</button>
+</div>
       </div>
       <div class="window-body experience-container-body">
         
@@ -617,11 +617,11 @@
     <section id="window-3d" class="window window-modal anim-spatial-3d" onmousedown="bringToFront('window-3d')" ontouchstart="bringToFront('window-3d')">
       <div class="window-header" onmousedown="startDragging(event, 'window-3d')" ontouchstart="startDraggingTouch(event, 'window-3d')">
         <span class="window-title">Proyectos 3D — Join Corporativo / CAMCO</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-3d')">_</button>
-          <button onclick="toggleMaximize('window-3d')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-3d')">X</button>
-        </div>
+       <div class="window-controls">
+  <button onclick="event.stopPropagation(); minimizeWindow('window-about')">_</button>
+  <button onclick="event.stopPropagation(); toggleMaximize('window-about')">□</button>
+  <button class="close-btn" onclick="event.stopPropagation(); closeWindow('window-about')">X</button>
+</div>
       </div>
       <div class="window-body">
 
@@ -1220,11 +1220,11 @@
     <section id="window-corporate" class="window window-modal anim-editorial-unfold" onmousedown="bringToFront('window-corporate')" ontouchstart="bringToFront('window-corporate')">
       <div class="window-header" onmousedown="startDragging(event, 'window-corporate')" ontouchstart="startDraggingTouch(event, 'window-corporate')">
         <span class="window-title">Material Corporativo — Orbimedix & CAMCO</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-corporate')">_</button>
-          <button onclick="toggleMaximize('window-corporate')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-corporate')">X</button>
-        </div>
+       <div class="window-controls">
+  <button onclick="event.stopPropagation(); minimizeWindow('window-about')">_</button>
+  <button onclick="event.stopPropagation(); toggleMaximize('window-about')">□</button>
+  <button class="close-btn" onclick="event.stopPropagation(); closeWindow('window-about')">X</button>
+</div>
       </div>
       <div class="window-body">
 
@@ -1826,11 +1826,11 @@
     <section id="window-social" class="window window-modal anim-social-feed" onmousedown="bringToFront('window-social')" ontouchstart="bringToFront('window-social')">
       <div class="window-header" onmousedown="startDragging(event, 'window-social')" ontouchstart="startDraggingTouch(event, 'window-social')">
         <span class="window-title">Contenido Redes — Orbimedix & CAMCO</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-social')">_</button>
-          <button onclick="toggleMaximize('window-social')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-social')">X</button>
-        </div>
+       <div class="window-controls">
+  <button onclick="event.stopPropagation(); minimizeWindow('window-about')">_</button>
+  <button onclick="event.stopPropagation(); toggleMaximize('window-about')">□</button>
+  <button class="close-btn" onclick="event.stopPropagation(); closeWindow('window-about')">X</button>
+</div>
       </div>
       <div class="window-body">
 
@@ -2351,11 +2351,11 @@
     <section id="window-other" class="window window-modal anim-sketch-draw" onmousedown="bringToFront('window-other')" ontouchstart="bringToFront('window-other')">
       <div class="window-header" onmousedown="startDragging(event, 'window-other')" ontouchstart="startDraggingTouch(event, 'window-other')">
         <span class="window-title">Otros Proyectos — Young Club</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-other')">_</button>
-          <button onclick="toggleMaximize('window-other')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-other')">X</button>
-        </div>
+       <div class="window-controls">
+  <button onclick="event.stopPropagation(); minimizeWindow('window-about')">_</button>
+  <button onclick="event.stopPropagation(); toggleMaximize('window-about')">□</button>
+  <button class="close-btn" onclick="event.stopPropagation(); closeWindow('window-about')">X</button>
+</div>
       </div>
       <div class="window-body">
         
@@ -2436,11 +2436,11 @@
     <section id="window-contact" class="window window-modal anim-message-open" onmousedown="bringToFront('window-contact')" ontouchstart="bringToFront('window-contact')">
       <div class="window-header" onmousedown="startDragging(event, 'window-contact')" ontouchstart="startDraggingTouch(event, 'window-contact')">
         <span class="window-title">Contacto</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-contact')">_</button>
-          <button onclick="toggleMaximize('window-contact')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-contact')">X</button>
-        </div>
+       <div class="window-controls">
+  <button onclick="event.stopPropagation(); minimizeWindow('window-about')">_</button>
+  <button onclick="event.stopPropagation(); toggleMaximize('window-about')">□</button>
+  <button class="close-btn" onclick="event.stopPropagation(); closeWindow('window-about')">X</button>
+</div>
       </div>
       <div class="window-body contact-window-body">
         <h2 class="contact-heading">Contáctame a través de:</h2>
@@ -3000,7 +3000,7 @@
       });
 
       win.addEventListener('mousedown', (e) => {
-        if (e.target.tagName === 'BUTTON' || win.classList.contains('maximized')) return;
+if (e.target.tagName === 'BUTTON' || e.target.closest('button') || win.classList.contains('maximized')) return;
         const edge = detectEdge(e, win);
         
         if (edge) {
@@ -3109,21 +3109,23 @@
     }
 
     function startDraggingTouch(e, id) {
-      if (e.target.tagName === 'BUTTON' || e.touches.length === 0) return;
-      currentWin = document.getElementById(id);
-      if (currentWin.classList.contains('maximized')) return;
+  // Se añade e.target.closest('button') para evitar que el toque sobre un botón inicie el arrastre
+  if (e.target.tagName === 'BUTTON' || e.target.closest('button') || e.touches.length === 0) return;
 
-      isDragging = true;
-      bringToFront(id);
+  currentWin = document.getElementById(id);
+  if (currentWin.classList.contains('maximized')) return;
 
-      const touch = e.touches[0];
-      const rect = currentWin.getBoundingClientRect();
-      offsetX = touch.clientX - rect.left;
-      offsetY = touch.clientY - rect.top;
+  isDragging = true;
+  bringToFront(id);
 
-      document.addEventListener('touchmove', onDragTouch, { passive: false });
-      document.addEventListener('touchend', stopDraggingTouch);
-    }
+  const touch = e.touches[0];
+  const rect = currentWin.getBoundingClientRect();
+  offsetX = touch.clientX - rect.left;
+  offsetY = touch.clientY - rect.top;
+
+  document.addEventListener('touchmove', onDragTouch, { passive: false });
+  document.addEventListener('touchend', stopDraggingTouch);
+}
 
     function onDragTouch(e) {
       if (!isDragging || !currentWin || e.touches.length === 0) return;

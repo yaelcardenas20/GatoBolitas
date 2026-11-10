@@ -62,16 +62,13 @@ button, a, .window-header, .desktop-icon, .taskbar-tab {
   cursor: url('images/mat pag/cursor.png') 0 0, url('images/mat pag/cursor.svg') 0 0, pointer;
 }
 
-/* COMPATIBILIDAD UNIVERSAL TOUCH / CLIC PARA SAFARI IPHONE */
-.clickable-card, 
-.sub-window,
-.modal-close,
-.close-btn,
-[onclick],
-[role="button"] {
-  cursor: pointer !important;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  touch-action: manipulation;
+/* REFUERZO DE INTERACCIÓN EN BOTONES DE CONTROL PARA SAFARI IPHONE */
+.window-controls button, 
+.close-btn {
+  touch-action: auto !important;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10;
 }
 
 /* CORRECCIÓN GLOBAL DE RENDERIZADO PARA SVG EN NAVEGADORES MÓVILES */
