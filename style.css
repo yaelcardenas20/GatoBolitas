@@ -1,3108 +1,1366 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portafolio | Diseñador Digital</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <!-- PANTALLA DE INICIO (BOOT / SPLASH SCREEN) -->
-  <div id="boot-screen" class="boot-screen" onclick="startSystem()">
-    <div class="boot-content">
-      <img src="images/mat pag/Gato Bolitas IC.svg" alt="Gato Bolitas IC" class="boot-logo" onerror="this.onerror=null; this.src='images/mat pag/Gato Bolitas IC.png';">
-      <p class="boot-text">HAGA CLICK PARA EMPEZAR<span class="dots"></span></p>
-    </div>
-  </div>
-
-  <!-- CANVAS INTERACTIVO DE CUADRÍCULA -->
-  <canvas id="grid-canvas"></canvas>
-
-  <!-- ILUSTRACIÓN AMBIENTAL DE FONDO -->
-  <div class="bg-illustration-wrapper" id="cat-wrapper">
-    <img src="images/mat pag/Gato Bolitas I.png" alt="Gato Bolitas I" class="bg-illustration" id="cat-img" onclick="triggerCatWiggle(event)" onerror="this.onerror=null; this.src='images/mat pag/Gato Bolitas I.svg';">
-  </div>
-
-  <!-- MODAL / PROYECCIÓN AL HACER CLIC EN TARJETAS -->
-  <div id="image-lightbox" class="lightbox-modal" onclick="closeLightboxOnBackdrop(event)">
-    <div class="lightbox-content window">
-      <div class="window-header card-header-accent">
-        <span class="window-title-accent" id="lightbox-title">PROYECCIÓN DE ARCHIVO</span>
-        <div class="window-controls">
-          <button class="close-btn" onclick="closeProjectionModal(event)">X</button>
-        </div>
-      </div>
-      <div class="lightbox-body">
-        <img id="lightbox-img" src="" alt="Proyección Ampliada">
-        <div class="lightbox-details">
-          <h3 id="lightbox-sub"></h3>
-          <p id="lightbox-desc"></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ESCRITORIO CON ÍCONOS PERSONALIZADOS -->
-  <main class="desktop" id="desktop">
-
-    <div class="desktop-icons">
-      <!-- 1. Sobre Mí -->
-      <button class="desktop-icon" onclick="openWindow('window-about', 'Sobre Mí', 'images/mat pag/sobre mi.png')">
-        <div class="icon-graphic">
-          <img src="images/mat pag/sobre mi.png" alt="Sobre Mí" class="desktop-icon-img" onerror="this.onerror=null; this.src='images/mat pag/sobre mi.svg';">
-        </div>
-        <span class="icon-label">Sobre Mí</span>
-      </button>
-
-      <!-- 2. Herramientas -->
-      <button class="desktop-icon" onclick="openWindow('window-tools', 'Herramientas', 'images/mat pag/herramientas.png')">
-        <div class="icon-graphic">
-          <img src="images/mat pag/herramientas.png" alt="Herramientas" class="desktop-icon-img" onerror="this.onerror=null; this.src='images/mat pag/herramientas.svg';">
-        </div>
-        <span class="icon-label">Herramientas</span>
-      </button>
-
-      <!-- 3. Experiencia -->
-      <button class="desktop-icon" onclick="openWindow('window-experience', 'Experiencia', 'images/mat pag/experiencia.png')">
-        <div class="icon-graphic">
-          <img src="images/mat pag/experiencia.png" alt="Experiencia" class="desktop-icon-img" onerror="this.onerror=null; this.src='images/mat pag/experiencia.svg';">
-        </div>
-        <span class="icon-label">Experiencia</span>
-      </button>
-
-      <!-- 4. 3D -->
-      <button class="desktop-icon" onclick="openWindow('window-3d', 'Proyectos 3D', 'images/mat pag/3d.png')">
-        <div class="icon-graphic">
-          <img src="images/mat pag/3d.png" alt="Proyectos 3D" class="desktop-icon-img" onerror="this.onerror=null; this.src='images/mat pag/3d.svg';">
-        </div>
-        <span class="icon-label">Proyectos 3D</span>
-      </button>
-
-      <!-- 5. Material Corporativo -->
-      <button class="desktop-icon" onclick="openWindow('window-corporate', 'Material Corporativo', 'images/mat pag/material corp.png')">
-        <div class="icon-graphic">
-          <img src="images/mat pag/material corp.png" alt="Material Corporativo" class="desktop-icon-img" onerror="this.onerror=null; this.src='images/mat pag/material corp.svg';">
-        </div>
-        <span class="icon-label">Material Corp</span>
-      </button>
-
-      <!-- 6. Contenido Redes -->
-      <button class="desktop-icon" onclick="openWindow('window-social', 'Contenido Redes', 'images/mat pag/redes sociales.png')">
-        <div class="icon-graphic">
-          <img src="images/mat pag/redes sociales.png" alt="Contenido Redes" class="desktop-icon-img" onerror="this.onerror=null; this.src='images/mat pag/redes sociales.svg';">
-        </div>
-        <span class="icon-label">Redes Social</span>
-      </button>
-
-      <!-- 7. Otros Proyectos -->
-      <button class="desktop-icon" onclick="openWindow('window-other', 'Otros Proyectos', 'images/mat pag/otros proyectos.png')">
-        <div class="icon-graphic">
-          <img src="images/mat pag/otros proyectos.png" alt="Otros Proyectos" class="desktop-icon-img" onerror="this.onerror=null; this.src='images/mat pag/otros proyectos.svg';">
-        </div>
-        <span class="icon-label">Otros Proyectos</span>
-      </button>
-
-      <!-- 8. Contacto -->
-      <button class="desktop-icon" onclick="openWindow('window-contact', 'Contacto', 'images/mat pag/contacto.png')">
-        <div class="icon-graphic">
-          <img src="images/mat pag/contacto.png" alt="Contacto" class="desktop-icon-img" onerror="this.onerror=null; this.src='images/mat pag/contacto.svg';">
-        </div>
-        <span class="icon-label">Contacto</span>
-      </button>
-    </div>
-
-    <!-- ==================== VENTANAS DEL SISTEMA ==================== -->
-
-    <!-- 1. SOBRE MÍ -->
-    <section id="window-about" class="window window-modal anim-card-drop" onmousedown="bringToFront('window-about')" ontouchstart="bringToFront('window-about')">
-      <div class="window-header" onmousedown="startDragging(event, 'window-about')" ontouchstart="startDraggingTouch(event, 'window-about')">
-        <span class="window-title">Sobre Mí</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-about')">_</button>
-          <button onclick="toggleMaximize('window-about')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-about')">X</button>
-        </div>
-      </div>
-      <div class="window-body about-profile-body">
-        <div class="profile-header-grid">
-          <div class="profile-photo-frame">
-            <img src="images/sobre mi/foto.jpg" alt="Ricardo Yael Cárdenas Granados" class="profile-photo" onerror="this.onerror=null; this.src='images/sobre mi/foto.png';">
-          </div>
-          <div class="profile-intro">
-            <h1>Ricardo Yael Cárdenas Granados</h1>
-            <span class="profile-subtitle">Diseñador Digital</span>
-            <p class="profile-degree">Licenciado en Diseño, Animación y Arte Digital | Maestría en Diseño Multimedia</p>
-          </div>
-        </div>
-
-        <div class="bio-box">
-          <p>Apasionado por la creación multidisciplinaria: 3D, diseño gráfico, editorial y desarrollo.</p>
-          <p>Mi compromiso es materializar tus proyectos con estándares de alta calidad y un enfoque 100% resolutivo. No me detengo ante los desafíos técnicos; me adapto, aprendo y entrego soluciones a la medida de tus necesidades.</p>
-        </div>
-
-        <div class="about-details-grid">
-          <div class="detail-card">
-            <h3>PERFIL & ACTITUD</h3>
-            <p>Entusiasta a realizar proyectos interesantes y originales. Disfruto de los retos y del trabajo en equipo, competitivo y paciente.</p>
-          </div>
-
-          <div class="detail-card">
-            <h3>IDIOMAS</h3>
-            <ul>
-              <li><strong>Español:</strong> Nativo</li>
-              <li><strong>Inglés:</strong> B1</li>
-            </ul>
-          </div>
-
-          <div class="detail-card">
-            <h3>HABILIDADES CLAVE</h3>
-            <ul>
-              <li>Liderazgo en proyectos</li>
-              <li>Gestión de equipos</li>
-              <li>Entusiasmo y compromiso</li>
-              <li>Bueno resolviendo problemas</li>
-              <li>Siempre buscando mejorar</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. HERRAMIENTAS -->
-    <section id="window-tools" class="window window-modal anim-toolbox-pop" onmousedown="bringToFront('window-tools')" ontouchstart="bringToFront('window-tools')">
-      <div class="window-header" onmousedown="startDragging(event, 'window-tools')" ontouchstart="startDraggingTouch(event, 'window-tools')">
-        <span class="window-title">Herramientas & Software</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-tools')">_</button>
-          <button onclick="toggleMaximize('window-tools')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-tools')">X</button>
-        </div>
-      </div>
-      <div class="window-body tools-container-body">
-        
-        <div class="tools-section">
-          <h2 class="tools-section-title">NIVEL DE DOMINIO</h2>
-          <div class="tools-grid-v2">
-
-            <div class="tool-card-v2">
-              <div class="tool-card-header">
-                <img src="images/herramientas/Photoshop.png" alt="Photoshop" class="tool-icon" onerror="this.onerror=null; this.src='images/herramientas/Photoshop.svg';">
-                <div class="tool-info">
-                  <h3>Photoshop</h3>
-                  <span class="tool-score">8 / 10</span>
-                </div>
-              </div>
-              <div class="battery-bar" title="Nivel 8 de 10">
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-              </div>
-              <ul class="tool-tasks">
-                <li>Creación de contenido</li>
-                <li>Retoque de fotografía</li>
-                <li>Elaboración de documentos</li>
-              </ul>
-            </div>
-
-            <div class="tool-card-v2">
-              <div class="tool-card-header">
-                <img src="images/herramientas/Maya.png" alt="Maya" class="tool-icon" onerror="this.onerror=null; this.src='images/herramientas/Maya.svg';">
-                <div class="tool-info">
-                  <h3>Autodesk Maya</h3>
-                  <span class="tool-score">8 / 10</span>
-                </div>
-              </div>
-              <div class="battery-bar" title="Nivel 8 de 10">
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-              </div>
-              <ul class="tool-tasks">
-                <li>Modelado</li>
-                <li>Efectos visuales</li>
-                <li>Mock ups</li>
-              </ul>
-            </div>
-
-            <div class="tool-card-v2">
-              <div class="tool-card-header">
-                <img src="images/herramientas/Clip Studio Paint.png" alt="Clip Studio Paint" class="tool-icon" onerror="this.onerror=null; this.src='images/herramientas/Clip Studio Paint.svg';">
-                <div class="tool-info">
-                  <h3>Clip Studio Paint</h3>
-                  <span class="tool-score">8 / 10</span>
-                </div>
-              </div>
-              <div class="battery-bar" title="Nivel 8 de 10">
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-              </div>
-              <ul class="tool-tasks">
-                <li>Ilustración digital</li>
-                <li>Edición de imagen</li>
-              </ul>
-            </div>
-
-            <div class="tool-card-v2">
-              <div class="tool-card-header">
-                <img src="images/herramientas/Illustrator.png" alt="Illustrator" class="tool-icon" onerror="this.onerror=null; this.src='images/herramientas/Illustrator.svg';">
-                <div class="tool-info">
-                  <h3>Illustrator</h3>
-                  <span class="tool-score">7 / 10</span>
-                </div>
-              </div>
-              <div class="battery-bar" title="Nivel 7 de 10">
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-              </div>
-              <ul class="tool-tasks">
-                <li>Elaboración de contenido impreso</li>
-                <li>Trabajo con vectores general</li>
-              </ul>
-            </div>
-
-            <div class="tool-card-v2">
-              <div class="tool-card-header">
-                <img src="images/herramientas/After Effects.png" alt="After Effects" class="tool-icon" onerror="this.onerror=null; this.src='images/herramientas/After Effects.svg';">
-                <div class="tool-info">
-                  <h3>After Effects</h3>
-                  <span class="tool-score">7 / 10</span>
-                </div>
-              </div>
-              <div class="battery-bar" title="Nivel 7 de 10">
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-              </div>
-              <ul class="tool-tasks">
-                <li>Edición</li>
-                <li>Efectos</li>
-                <li>Motion graphics simples</li>
-              </ul>
-            </div>
-
-            <div class="tool-card-v2">
-              <div class="tool-card-header">
-                <img src="images/herramientas/In Design.png" alt="In Design" class="tool-icon" onerror="this.onerror=null; this.src='images/herramientas/In Design.svg';">
-                <div class="tool-info">
-                  <h3>InDesign</h3>
-                  <span class="tool-score">7 / 10</span>
-                </div>
-              </div>
-              <div class="battery-bar" title="Nivel 7 de 10">
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-              </div>
-              <ul class="tool-tasks">
-                <li>Elaboración de catálogos</li>
-              </ul>
-            </div>
-
-            <div class="tool-card-v2">
-              <div class="tool-card-header">
-                <img src="images/herramientas/Blender.png" alt="Blender" class="tool-icon" onerror="this.onerror=null; this.src='images/herramientas/Blender.svg';">
-                <div class="tool-info">
-                  <h3>Blender</h3>
-                  <span class="tool-score">6 / 10</span>
-                </div>
-              </div>
-              <div class="battery-bar" title="Nivel 6 de 10">
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-              </div>
-              <ul class="tool-tasks">
-                <li>Modelado simple / intermedio</li>
-              </ul>
-            </div>
-
-            <div class="tool-card-v2">
-              <div class="tool-card-header">
-                <img src="images/herramientas/Premiere.png" alt="Premiere" class="tool-icon" onerror="this.onerror=null; this.src='images/herramientas/Premiere.svg';">
-                <div class="tool-info">
-                  <h3>Premiere Pro</h3>
-                  <span class="tool-score">6 / 10</span>
-                </div>
-              </div>
-              <div class="battery-bar" title="Nivel 6 de 10">
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell filled"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-                <span class="battery-cell"></span>
-              </div>
-              <ul class="tool-tasks">
-                <li>Edición de video</li>
-                <li>Retoque de colores</li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="tools-section">
-          <h2 class="tools-section-title">EN APRENDIZAJE Y EXPLORACIÓN</h2>
-          <div class="tools-grid-v2">
-
-            <div class="tool-card-v2 learning-card">
-              <div class="tool-card-header">
-                <div class="tool-icon-placeholder">UE</div>
-                <div class="tool-info">
-                  <h3>Unreal Engine</h3>
-                  <span class="learning-tag">EN PROGRESO</span>
-                </div>
-              </div>
-              <ul class="tool-tasks">
-                <li>Videojuegos</li>
-                <li>Efectos avanzados</li>
-                <li>Utilidades Virtuales</li>
-              </ul>
-            </div>
-
-            <div class="tool-card-v2 learning-card">
-              <div class="tool-card-header">
-                <div class="tool-icon-placeholder">TM</div>
-                <div class="tool-info">
-                  <h3>Twinmotion</h3>
-                  <span class="learning-tag">EN PROGRESO</span>
-                </div>
-              </div>
-              <ul class="tool-tasks">
-                <li>Arquitectura precisa y realista</li>
-              </ul>
-            </div>
-
-            <div class="tool-card-v2 learning-card">
-              <div class="tool-card-header">
-                <div class="tool-icon-placeholder">UI</div>
-                <div class="tool-info">
-                  <h3>UX / UI</h3>
-                  <span class="learning-tag">EN PROGRESO</span>
-                </div>
-              </div>
-              <ul class="tool-tasks">
-                <li>Diseño de interfaces & experiencia (general)</li>
-              </ul>
-            </div>
-
-            <div class="tool-card-v2 learning-card">
-              <div class="tool-card-header">
-                <div class="tool-icon-placeholder">MG</div>
-                <div class="tool-info">
-                  <h3>Motion Graphics</h3>
-                  <span class="learning-tag">EN PROGRESO</span>
-                </div>
-              </div>
-              <ul class="tool-tasks">
-                <li>Animación y dinámica visual (general)</li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 3. EXPERIENCIA -->
-    <section id="window-experience" class="window window-modal anim-timeline-slide" onmousedown="bringToFront('window-experience')" ontouchstart="bringToFront('window-experience')">
-      <div class="window-header" onmousedown="startDragging(event, 'window-experience')" ontouchstart="startDraggingTouch(event, 'window-experience')">
-        <span class="window-title">Experiencia & Formación Académica</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-experience')">_</button>
-          <button onclick="toggleMaximize('window-experience')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-experience')">X</button>
-        </div>
-      </div>
-      <div class="window-body experience-container-body">
-        
-        <div class="exp-section">
-          <h2 class="exp-section-title">EXPERIENCIA LABORAL</h2>
-          <div class="timeline-v2">
-
-            <div class="timeline-card active-job">
-              <div class="timeline-card-header">
-                <h3>CAMCO</h3>
-                <span class="job-badge">FEBRERO 2026 - VIGENTE</span>
-              </div>
-              <span class="job-role">Diseñador General</span>
-              <ul class="job-tasks">
-                <li>Creación de contenido para redes sociales.</li>
-                <li>Diseño y propuestas de muebles.</li>
-                <li>Elaboración de multiformatos corporativos (catálogos, etiquetas, maquetas 3D, etc.).</li>
-              </ul>
-            </div>
-
-            <div class="timeline-card">
-              <div class="timeline-card-header">
-                <h3>ORBIMEDIX - JOIN CORPORATIVO</h3>
-                <span class="job-date">INVIERNO 2025 - FEBRERO 2026</span>
-              </div>
-              <span class="job-role">Producción & Marketing / Community Manager</span>
-              <ul class="job-tasks">
-                <li>Creación y edición de publicidad multimedia.</li>
-                <li>Ejecución de proyectos varios (3D, documentos, contenido artístico).</li>
-                <li>Planificación y desarrollo de estrategias de marketing y empresariales.</li>
-                <li>Atención al cliente vía redes sociales, moderador y gestión de documentos.</li>
-              </ul>
-            </div>
-
-            <div class="timeline-card">
-              <div class="timeline-card-header">
-                <h3>ASISTENTE EN EMPRESA PARTICULAR</h3>
-                <span class="job-date">PRIMAVERA 2022 - PRIMAVERA 2023</span>
-              </div>
-              <ul class="job-tasks">
-                <li>Uso de tiempo completo de programas de Office.</li>
-                <li>Conversión, ajustes y compresión de distintos archivos y formatos.</li>
-                <li>Edición y restauración de textos dañados o gastados.</li>
-              </ul>
-            </div>
-
-            <div class="timeline-card">
-              <div class="timeline-card-header">
-                <h3>BELIVEO</h3>
-                <span class="job-date">INVIERNO 2021 - PRIMAVERA 2022</span>
-              </div>
-              <span class="job-role">Agente de Call Center</span>
-              <ul class="job-tasks">
-                <li>Manejo de sistemas y cuentas.</li>
-                <li>Atención y servicio al cliente.</li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="exp-section">
-          <h2 class="exp-section-title">DATOS ACADÉMICOS</h2>
-          <div class="academic-grid">
-
-            <div class="academic-card highlight-card">
-              <span class="academic-date">DICIEMBRE 2024 - AGOSTO 2026</span>
-              <h3>UNITEC GUADALAJARA</h3>
-              <p class="academic-degree">Maestría en Diseño Multimedia</p>
-            </div>
-
-            <div class="academic-card">
-              <span class="academic-date">ENERO 2022 - DICIEMBRE 2024</span>
-              <h3>UNITEC GUADALAJARA</h3>
-              <p class="academic-degree">Licenciatura en Diseño, Animación y Arte Digital</p>
-            </div>
-
-            <div class="academic-card">
-              <span class="academic-date">2019 - 2021</span>
-              <h3>CBETIS 38</h3>
-              <p class="academic-degree">Bachillerato Técnico en Electrónica</p>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 4. PROYECTOS 3D -->
-    <section id="window-3d" class="window window-modal anim-spatial-3d" onmousedown="bringToFront('window-3d')" ontouchstart="bringToFront('window-3d')">
-      <div class="window-header" onmousedown="startDragging(event, 'window-3d')" ontouchstart="startDraggingTouch(event, 'window-3d')">
-        <span class="window-title">Proyectos 3D — Join Corporativo / CAMCO</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-3d')">_</button>
-          <button onclick="toggleMaximize('window-3d')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-3d')">X</button>
-        </div>
-      </div>
-      <div class="window-body">
-
-        <div class="projects-two-columns">
-
-          <!-- COLUMNA IZQUIERDA: JOIN CORPORATIVO -->
-          <div class="column-brand">
-            <div class="brand-column-header">
-              <h2>JOIN CORPORATIVO / ORBIMEDIX</h2>
-            </div>
-
-            <!-- BLOQUE 1: REMODELACIÓN CLÍNICA MÉDICA (LEÓN, GTO) -->
-            <div class="project-block">
-              <h3 class="tools-section-title">01. REMODELACIÓN CLÍNICA MÉDICA (LEÓN, GTO)</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">A. RECEPCIÓN</h4>
-                <div class="grid-proyectos">
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">RECEPCIÓN — CONCEPTUAL 3D</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/L Recepción (2).webp" alt="Render Recepción" onerror="this.onerror=null; this.src='images/3D/Orbimedix/L Recepción (2).png';">
-                      <h3>RENDER 3D</h3>
-                      <p>Propuesta conceptual e iluminación para el área de recepción.</p>
-                    </div>
-                  </div>
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">RECEPCIÓN — ESPACIO REAL</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/L Recepción (1).webp" alt="Realidad Recepción" onerror="this.onerror=null; this.src='images/3D/Orbimedix/L Recepción (1).png';">
-                      <h3>REALIDAD</h3>
-                      <p>Fotografía del espacio terminado y en funcionamiento.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">B. CONSULTORIO</h4>
-                <div class="grid-proyectos">
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONSULTORIO — CONCEPTUAL 3D</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/L Consultorio (1).webp" alt="Render Consultorio" onerror="this.onerror=null; this.src='images/3D/Orbimedix/L Consultorio (1).png';">
-                      <h3>RENDER 3D</h3>
-                      <p>Distribución espacial y diseño visual del consultorio.</p>
-                    </div>
-                  </div>
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONSULTORIO — ESPACIO REAL</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/L Consultorio (2).webp" alt="Realidad Consultorio" onerror="this.onerror=null; this.src='images/3D/Orbimedix/L Consultorio (2).png';">
-                      <h3>REALIDAD</h3>
-                      <p>Mapeo visual y ejecución física del consultorio.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">C. ÁREA GENERAL</h4>
-                <div class="grid-proyectos">
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ÁREA GENERAL — CONCEPTUAL 3D</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/L General (2).webp" alt="Render General" onerror="this.onerror=null; this.src='images/3D/Orbimedix/L General (2).png';">
-                      <h3>RENDER 3D</h3>
-                      <p>Vista en perspectiva general del área de circulación.</p>
-                    </div>
-                  </div>
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ÁREA GENERAL — ESPACIO REAL</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/L General (1).webp" alt="Realidad General" onerror="this.onerror=null; this.src='images/3D/Orbimedix/L General (1).png';">
-                      <h3>REALIDAD</h3>
-                      <p>Acabados finales e iluminación del pasillo principal.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">D. VESTIDORES</h4>
-                <div class="grid-proyectos">
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">VESTIDORES — CONCEPTUAL 3D</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/L Vestidor (1).webp" alt="Render Vestidor" onerror="this.onerror=null; this.src='images/3D/Orbimedix/L Vestidor (1).png';">
-                      <h3>RENDER 3D</h3>
-                      <p>Propuesta de señalética y accesos a vestidores.</p>
-                    </div>
-                  </div>
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">VESTIDORES — ESPACIO REAL</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/L Vestidor (2).webp" alt="Realidad Vestidor" onerror="this.onerror=null; this.src='images/3D/Orbimedix/L Vestidor (2).png';">
-                      <h3>REALIDAD</h3>
-                      <p>Materiales y viniles instalados en área de vestidores.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- BLOQUE 2: TRANSFORMACIÓN ACCESO INFANTIL MMCC -->
-            <div class="project-block">
-              <h3 class="tools-section-title">02. TRANSFORMACIÓN ACCESO INFANTIL MMCC (LÍNEA DE TIEMPO)</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">ETAPAS 1 Y 2: DESARROLLO INICIAL</h4>
-                <div class="grid-proyectos">
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ETAPA 1: ESTADO INICIAL</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/Entrada MMCC (4).webp" alt="Estado Inicial MMCC" onerror="this.onerror=null; this.src='images/3D/Orbimedix/Entrada MMCC (4).png';">
-                      <h3>ESTADO INICIAL</h3>
-                      <p>Fotografía del espacio previo a la intervención.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ETAPA 2: PROPUESTA 3D</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/Entrada MMCC (1).webp" alt="Propuesta 3D MMCC" onerror="this.onerror=null; this.src='images/3D/Orbimedix/Entrada MMCC (1).png';">
-                      <h3>PROPUESTA 3D</h3>
-                      <p>Concepto visual con elementos orgánicos y volumen en plafón.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">ETAPAS 3 Y 4: CONCLUSIÓN DE PROYECTO</h4>
-                <div class="grid-proyectos">
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ETAPA 3: MODELO ACTUALIZADO</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/Entrada MMCC (3).webp" alt="Render Ajustes MMCC" onerror="this.onerror=null; this.src='images/3D/Orbimedix/Entrada MMCC (3).png';">
-                      <h3>MODELO ACTUALIZADO</h3>
-                      <p>Adaptación a nuevas propuestas y evolución.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ETAPA 4: RESULTADO FINAL</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/Entrada MMCC (2).webp" alt="Resultado Final MMCC" onerror="this.onerror=null; this.src='images/3D/Orbimedix/Entrada MMCC (2).png';">
-                      <h3>RESULTADO FINAL</h3>
-                      <p>Transformación real del acceso infantil concluida.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 3: MUEBLE EXHIBIDOR MODULAR -->
-            <div class="project-block">
-              <h3 class="tools-section-title">03. MUEBLE EXHIBIDOR MODULAR — INGENIERÍA 3D</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">PROSPECTO Y RENDERS</h4>
-                <div class="grid-proyectos">
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PRODUCTO FINAL</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/Mueble 3D (1).webp" alt="Render Final Mueble" onerror="this.onerror=null; this.src='images/3D/Orbimedix/Mueble 3D (1).png';">
-                      <h3>RENDER A</h3>
-                      <p>Propuesta en vista general del aparador de exhibición ensamblado.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ILUMINACIÓN & MATERIALES</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/Mueble 3D (4).webp" alt="Perspectiva Mueble" onerror="this.onerror=null; this.src='images/3D/Orbimedix/Mueble 3D (4).png';">
-                      <h3>RENDER B</h3>
-                      <p>Propuesta en vista general del aparador de exhibición ensamblado.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">DESGLOSE DE ESTRUCTURA</h4>
-                <div class="grid-proyectos">
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">DESGLOSE TÉCNICO</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/Mueble 3D (2).webp" alt="Componentes Mueble" onerror="this.onerror=null; this.src='images/3D/Orbimedix/Mueble 3D (2).png';">
-                      <h3>ESTRUCTURA A</h3>
-                      <p>Vista de piezas individuales para validación de armado.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MALLA & ESTRUCTURA</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/Mueble 3D (3).webp" alt="Malla 3D Mueble" onerror="this.onerror=null; this.src='images/3D/Orbimedix/Mueble 3D (3).png';">
-                      <h3>ESTRUCTURA B</h3>
-                      <p>Vista de piezas individuales para validación de armado.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 4: ISLA COMERCIAL "EL INTERLUDIO" -->
-            <div class="project-block">
-              <h3 class="tools-section-title">04. ISLA COMERCIAL "EL INTERLUDIO"</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">PROPUESTAS COMERCIALES</h4>
-                <div class="grid-proyectos">
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ESTUDIO VOLUMÉTRICO</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/El Interludio (1).webp" alt="Volumetría Interludio" onerror="this.onerror=null; this.src='images/3D/Orbimedix/El Interludio (1).png';">
-                      <h3>RENDER COMERCIAL</h3>
-                      <p>Modelado 3D de la estructura y atención perimetral.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">RENDER COMERCIAL</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Orbimedix/El Interludio (2).webp" alt="Render Final Interludio" onerror="this.onerror=null; this.src='images/3D/Orbimedix/El Interludio (2).png';">
-                      <h3>RENDER COMERCIAL</h3>
-                      <p>Modelado 3D de la estructura y atención perimetral.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- COLUMNA DERECHA: CAMCO -->
-          <div class="column-brand">
-            <div class="brand-column-header">
-              <h2>CAMCO</h2>
-            </div>
-
-            <!-- BLOQUE 1: STAND EXPO — EXPO MUEBLE INTERNACIONAL (CDMX) -->
-            <div class="project-block">
-              <h3 class="tools-section-title">01. STAND EXPO — EXPO MUEBLE INTERNACIONAL (CDMX)</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">EVOLUCIÓN DEL PROYECTO</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTA INICIAL</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Expo GDL (7).png" alt="Propuesta Inicial Stand">
-                      <h3>PROPUESTA INICIAL</h3>
-                      <p>Render 3D del concepto base para el stand comercial.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">DESARROLLO 3D</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Expo GDL (6).png" alt="Desarrollo 3D Stand">
-                      <h3>DESARROLLO 3D</h3>
-                      <p>Ajustes estructurales y distribución de exhibición.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">RESULTADO FINAL (VISTA 1)</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Expo GDL (5).png" alt="Resultado Final Stand Vista 1">
-                      <h3>RESULTADO FINAL</h3>
-                      <p>Vista general del stand instalado y abierto en el evento.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">RESULTADO FINAL (VISTA 2)</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Expo GDL (1).png" alt="Resultado Final Stand Vista 2">
-                      <h3>RESULTADO FINAL</h3>
-                      <p>Vista de perspectiva en ángulo del stand terminado.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">RESULTADO FINAL (VISTA 3)</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Expo GDL (2).webp" alt="Resultado Final Stand Vista 3">
-                      <h3>RESULTADO FINAL</h3>
-                      <p>Vista de detalle e iluminación del espacio instalado.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 2: STAND EXPO — ABASTUR (EXPO GUADALAJARA) -->
-            <div class="project-block">
-              <h3 class="tools-section-title">02. STAND EXPO — ABASTUR (EXPO GUADALAJARA)</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">DE LA IDEA CONCEPTUAL A LA EJECUCIÓN EN EXPOSICIÓN</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTA 3D</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Expo GDL2 (1).png" alt="Propuesta 3D Abastur">
-                      <h3>PROPUESTA 3D</h3>
-                      <p>Render del concepto volumétrico y fachada del stand.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">REVISIÓN DE DISEÑO</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Expo GDL2 (5).png" alt="Revisión de Diseño Stand">
-                      <h3>REVISIÓN DE DISEÑO</h3>
-                      <p>Adaptación de mamparas y distribución de producto.</p>
-                    </div>
-                  </div>
-
-                 <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">RESULTADO FINAL (VISTA 1)</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Expo GDL2 (2).JPG" alt="Resultado Final Vista 1" onerror="this.onerror=null; this.src=(this.src.endsWith('.JPG')?'images/3D/Camco/Expo GDL2 (2).jpg':'images/3D/Camco/Expo GDL2 (2).png');">
-                      <h3>RESULTADO FINAL</h3>
-                      <p>Vista general del stand terminado en Abastur.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">RESULTADO FINAL (VISTA 2)</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Expo GDL2 (3).JPG" alt="Resultado Final Vista 2" onerror="this.onerror=null; this.src=(this.src.endsWith('.JPG')?'images/3D/Camco/Expo GDL2 (3).jpg':'images/3D/Camco/Expo GDL2 (3).png');">
-                      <h3>RESULTADO FINAL</h3>
-                      <p>Vista de recorrido lateral y área de atención.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">RESULTADO FINAL (VISTA 3)</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Expo GDL2 (4).JPG" alt="Resultado Final Vista 3" onerror="this.onerror=null; this.src=(this.src.endsWith('.JPG')?'images/3D/Camco/Expo GDL2 (4).jpg':'images/3D/Camco/Expo GDL2 (4).png');">
-                      <h3>RESULTADO FINAL</h3>
-                      <p>Vista de ambientación y exhibición bajo luz real.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 3: MOBILIARIO DE LÍNEA (DISEÑO TÉCNICO & PRODUCCIÓN) -->
-            <div class="project-block">
-              <h3 class="tools-section-title">03. MOBILIARIO DE LÍNEA (DISEÑO TÉCNICO & PRODUCCIÓN)</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">MODELOS 3D LISTOS PARA FABRICACIÓN</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MODELO DE MUEBLE DE LÍNEA</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Modelo (1).png" alt="Modelo 1">
-                      <h3>MODELO DE LÍNEA</h3>
-                      <p>Modelo requerido para proyecto variado.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MODELO DE MUEBLE DE LÍNEA</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Modelo (2).png" alt="Modelo 2">
-                      <h3>MODELO DE LÍNEA</h3>
-                      <p>Modelo requerido para proyecto variado.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MODELO DE MUEBLE DE LÍNEA</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Modelo (3).png" alt="Modelo 3">
-                      <h3>MODELO DE LÍNEA</h3>
-                      <p>Modelo requerido para proyecto variado.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MODELO DE MUEBLE DE LÍNEA</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Modelo (4).png" alt="Modelo 4">
-                      <h3>MODELO DE LÍNEA</h3>
-                      <p>Modelo requerido para proyecto variado.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 4: CATÁLOGO DE PROPUESTAS & MOBILIARIO ESPECIAL -->
-            <div class="project-block">
-              <h3 class="tools-section-title">04. CATÁLOGO DE PROPUESTAS & MOBILIARIO ESPECIAL</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">PIEZAS CONCEPTUALES E INNOVACIONES DE CATÁLOGO</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 01</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (1).png" alt="Propuestas 1">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 02</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (2).png" alt="Propuestas 2">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 03</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (3).png" alt="Propuestas 3">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 04</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (4).png" alt="Propuestas 4">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 05</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (5).png" alt="Propuestas 5">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 06</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (6).png" alt="Propuestas 6">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 07</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (7).png" alt="Propuestas 7">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 08</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (8).png" alt="Propuestas 8">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 09</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (9).png" alt="Propuestas 9">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 10</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (10).png" alt="Propuestas 10">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 11</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (11).png" alt="Propuestas 11">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ENCARGO CORPORATIVO 12</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Propuestas (12).png" alt="Propuestas 12">
-                      <h3>PROPUESTA CORPORATIVA</h3>
-                      <p>Medidas y representación visual de muebles a fabricar.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 5: MUEBLE EXHIBIDOR DE TEXTILES (DISEÑO DE PRODUCTO) -->
-            <div class="project-block">
-              <h3 class="tools-section-title">05. MUEBLE EXHIBIDOR DE TEXTILES (DISEÑO DE PRODUCTO)</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">SOLUCIÓN FUNCIONAL A MEDIDA</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">EXHIBIDOR MODULAR DE TELAS</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Telas.jpg" alt="Exhibidor Modular de Telas">
-                      <h3>EXHIBIDOR DE TELAS</h3>
-                      <p>Diseño 3D de mobiliario especial para muestra y clasificación de textiles.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 6: VISUALIZACIÓN AUDIOVISUAL 3D & E-COMMERCE -->
-            <div class="project-block">
-              <h3 class="tools-section-title">06. VISUALIZACIÓN AUDIOVISUAL 3D & E-COMMERCE</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">PROCESO DIGITAL: MODELO EN SET VIRTUAL CON ANIMACIÓN</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MODELADO DE PRODUCTO</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Video (2).png" alt="Modelado de Producto">
-                      <h3>MODELADO 3D</h3>
-                      <p>Geometría base y texturizado de la pieza central.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SET VIRTUAL 3D</span></div>
-                    <div class="card-body">
-                      <img src="images/3D/Camco/Video (1).png" alt="Set Virtual 3D">
-                      <h3>SET VIRTUAL</h3>
-                      <p>Iluminación studio y preparación de escena para render.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window">
-                    <div class="card-header-accent"><span class="window-title-accent">RENDER ANIMADO / VIDEO WEB</span></div>
-                    <div class="card-body">
-                      <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1.5px solid var(--turquesa); background-color: var(--casi-negro-solido);">
-                        <source src="images/3D/Camco/Video (3).mp4" type="video/mp4">
-                        Tu navegador no soporta la reproducción de video.
-                      </video>
-                      <h3>REEL PROMOCIONAL</h3>
-                      <p>Reel promocional interactivo para la plataforma e-commerce de la marca.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 5. MATERIAL CORPORATIVO -->
-    <section id="window-corporate" class="window window-modal anim-editorial-unfold" onmousedown="bringToFront('window-corporate')" ontouchstart="bringToFront('window-corporate')">
-      <div class="window-header" onmousedown="startDragging(event, 'window-corporate')" ontouchstart="startDraggingTouch(event, 'window-corporate')">
-        <span class="window-title">Material Corporativo — Orbimedix & CAMCO</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-corporate')">_</button>
-          <button onclick="toggleMaximize('window-corporate')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-corporate')">X</button>
-        </div>
-      </div>
-      <div class="window-body">
-
-        <div class="projects-two-columns">
-
-          <!-- COLUMNA IZQUIERDA: ORBIMEDIX -->
-          <div class="column-brand">
-            <div class="brand-column-header">
-              <h2>ORBIMEDIX</h2>
-            </div>
-
-            <!-- BLOQUE 1: ILUSTRACIÓN DE MASCOTA CORPORATIVA ("ORBÍN") -->
-            <div class="project-block">
-              <h3 class="tools-section-title">01. ILUSTRACIÓN DE MASCOTA CORPORATIVA ("ORBÍN")</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">VARIACIONES CONCEPTUALES Y DE CAMPAÑA</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ORBÍN DÍA DE MUERTOS</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/orbimedix/Orbín (1).webp" alt="Orbín Día de Muertos" onerror="this.onerror=null; this.src='images/corporativo/orbimedix/Orbín (1).png';">
-                      <h3>ORBÍN DÍA DE MUERTOS</h3>
-                      <p>Ilustración conceptual temática para la campaña de Día de Muertos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ORBÍN HALLOWEEN</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/orbimedix/Orbín (2).webp" alt="Orbín Halloween" onerror="this.onerror=null; this.src='images/corporativo/orbimedix/Orbín (2).png';">
-                      <h3>ORBÍN HALLOWEEN</h3>
-                      <p>Adaptación del personaje institucional para festividades de Halloween.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ORBÍN CAMPAÑA NAVIDEÑA</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/orbimedix/Orbín (3).webp" alt="Orbín Campaña Navideña" onerror="this.onerror=null; this.src='images/corporativo/orbimedix/Orbín (3).png';">
-                      <h3>ORBÍN CAMPAÑA NAVIDEÑA</h3>
-                      <p>Composición gráfica y branding estacional para la campaña navideña.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 2: SISTEMA DE SEGUIMIENTO Y ANALÍTICA DE CAMPAÑAS -->
-            <div class="project-block">
-              <h3 class="tools-section-title">02. SISTEMA DE SEGUIMIENTO Y ANALÍTICA DE CAMPAÑAS</h3>
-              
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">DASHBOARDS Y HOJAS DE CONTROL OPERATIVO</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SISTEMA CONTROL DE MATRICULACIÓN Y SEGUIMIENTO VENTA</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/orbimedix/Sistema (1).webp" alt="Sistema 1" onerror="this.onerror=null; this.src='images/corporativo/orbimedix/Sistema (1).png';">
-                      <h3>CONTROL Y ANALÍTICA</h3>
-                      <p>Sistema Control de Matriculación y Seguimiento Venta.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SISTEMA CONTROL DE VENDEDORES DÍA / SEMANA / MES</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/orbimedix/Sistema (2).webp" alt="Sistema 2" onerror="this.onerror=null; this.src='images/corporativo/orbimedix/Sistema (2).png';">
-                      <h3>CONTROL Y ANALÍTICA</h3>
-                      <p>Sistema Control de Vendedores Día / Semana / Mes.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SISTEMA CONTROL DE ALUMNOS INSCRITOS</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/orbimedix/Sistema (3).webp" alt="Sistema 3" onerror="this.onerror=null; this.src='images/corporativo/orbimedix/Sistema (3).png';">
-                      <h3>CONTROL Y ANALÍTICA</h3>
-                      <p>Sistema Control de Alumnos Inscritos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SISTEMA HOJA DE COSTO POR CLIC GOOGLE Y META ADS</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/orbimedix/Sistema (4).webp" alt="Sistema 4" onerror="this.onerror=null; this.src='images/corporativo/orbimedix/Sistema (4).png';">
-                      <h3>CONTROL Y ANALÍTICA</h3>
-                      <p>Sistema Hoja de Costo por Clic Google y Meta Ads.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SISTEMA COMPARADOR METRICS INTERMEDIARIOS</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/orbimedix/Sistema (5).webp" alt="Sistema 5" onerror="this.onerror=null; this.src='images/corporativo/orbimedix/Sistema (5).png';">
-                      <h3>CONTROL Y ANALÍTICA</h3>
-                      <p>Sistema Comparador Metrics Intermediarios.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- COLUMNA DERECHA: CAMCO CORPORATIVO -->
-          <div class="column-brand">
-            <div class="brand-column-header">
-              <h2>CAMCO CORPORATIVO</h2>
-            </div>
-
-            <!-- BLOQUE 1: CATÁLOGOS CORPORATIVOS -->
-            <div class="project-block">
-              <h3 class="tools-section-title">01. CATÁLOGOS CORPORATIVOS</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">DOCUMENTOS DE DESCUENTOS, EXISTENCIAS Y EVENTOS</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window pdf-card">
-                    <div class="card-header-accent"><span class="window-title-accent">CATÁLOGO (1)</span></div>
-                    <div class="card-body">
-                      <a href="images/corporativo/Camco/Catálogo (1).pdf" target="_blank" class="pdf-icon-wrapper" title="Abrir Catálogo (1).pdf">
-                        <div class="pdf-badge">PDF</div>
-                        <span class="pdf-filename">Catálogo (1).pdf</span>
-                      </a>
-                      <h3>DOCUMENTO PDF</h3>
-                      <p>Catálogo de la empresa para descuentos, existencias y eventos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window pdf-card">
-                    <div class="card-header-accent"><span class="window-title-accent">CATÁLOGO (6)</span></div>
-                    <div class="card-body">
-                      <a href="images/corporativo/Camco/Catálogo (6).pdf" target="_blank" class="pdf-icon-wrapper" title="Abrir Catálogo (6).pdf">
-                        <div class="pdf-badge">PDF</div>
-                        <span class="pdf-filename">Catálogo (6).pdf</span>
-                      </a>
-                      <h3>DOCUMENTO PDF</h3>
-                      <p>Catálogo de la empresa para descuentos, existencias y eventos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window pdf-card">
-                    <div class="card-header-accent"><span class="window-title-accent">CATÁLOGO (7)</span></div>
-                    <div class="card-body">
-                      <a href="images/corporativo/Camco/Catálogo (7).pdf" target="_blank" class="pdf-icon-wrapper" title="Abrir Catálogo (7).pdf">
-                        <div class="pdf-badge">PDF</div>
-                        <span class="pdf-filename">Catálogo (7).pdf</span>
-                      </a>
-                      <h3>DOCUMENTO PDF</h3>
-                      <p>Catálogo de la empresa para descuentos, existencias y eventos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window pdf-card">
-                    <div class="card-header-accent"><span class="window-title-accent">CATÁLOGO (8)</span></div>
-                    <div class="card-body">
-                      <a href="images/corporativo/Camco/Catálogo (8).pdf" target="_blank" class="pdf-icon-wrapper" title="Abrir Catálogo (8).pdf">
-                        <div class="pdf-badge">PDF</div>
-                        <span class="pdf-filename">Catálogo (8).pdf</span>
-                      </a>
-                      <h3>DOCUMENTO PDF</h3>
-                      <p>Catálogo de la empresa para descuentos, existencias y eventos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window pdf-card">
-                    <div class="card-header-accent"><span class="window-title-accent">CATÁLOGO (9)</span></div>
-                    <div class="card-body">
-                      <a href="images/corporativo/Camco/Catálogo (9).pdf" target="_blank" class="pdf-icon-wrapper" title="Abrir Catálogo (9).pdf">
-                        <div class="pdf-badge">PDF</div>
-                        <span class="pdf-filename">Catálogo (9).pdf</span>
-                      </a>
-                      <h3>DOCUMENTO PDF</h3>
-                      <p>Catálogo de la empresa para descuentos, existencias y eventos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window pdf-card">
-                    <div class="card-header-accent"><span class="window-title-accent">CATÁLOGO (10)</span></div>
-                    <div class="card-body">
-                      <a href="images/corporativo/Camco/Catálogo (10).pdf" target="_blank" class="pdf-icon-wrapper" title="Abrir Catálogo (10).pdf">
-                        <div class="pdf-badge">PDF</div>
-                        <span class="pdf-filename">Catálogo (10).pdf</span>
-                      </a>
-                      <h3>DOCUMENTO PDF</h3>
-                      <p>Catálogo de la empresa para descuentos, existencias y eventos.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 2: ADAPTACIONES DE IMAGEN Y DISTINTIVOS -->
-            <div class="project-block">
-              <h3 class="tools-section-title">02. ADAPTACIONES DE IMAGEN Y DISTINTIVOS</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">ADAPTACIÓN DE IMAGEN DE MARCA PARA DISTINTAS PLATAFORMAS</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">DISTINTIVO (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Distintivo (1).jpg" alt="Distintivo 1">
-                      <h3>DISTINTIVO 1</h3>
-                      <p>Adaptación de imagen de marca para distintas plataformas.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">DISTINTIVO (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Distintivo (2).jpg" alt="Distintivo 2">
-                      <h3>DISTINTIVO 2</h3>
-                      <p>Adaptación de imagen de marca para distintas plataformas.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">DISTINTIVO (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Distintivo (3).jpg" alt="Distintivo 3">
-                      <h3>DISTINTIVO 3</h3>
-                      <p>Adaptación de imagen de marca para distintas plataformas.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">DISTINTIVO (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Distintivo (4).jpg" alt="Distintivo 4">
-                      <h3>DISTINTIVO 4</h3>
-                      <p>Adaptación de imagen de marca para distintas plataformas.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 3: ETIQUETAS DE PRODUCTO -->
-            <div class="project-block">
-              <h3 class="tools-section-title">03. ETIQUETAS DE PRODUCTO Y DISTINTIVOS</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">DISEÑO DE ETIQUETAS Y DISTINTIVOS GENERALES PARA LÍNEA DE PRODUCTOS</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ETIQUETA INDIVIDUAL</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Etiqueta.png" alt="Etiqueta Individual">
-                      <h3>ETIQUETA INDIVIDUAL</h3>
-                      <p>Diseño de etiqueta para línea de productos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SET DE ETIQUETAS</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Etiquetas.webp" alt="Set de Etiquetas" onerror="this.onerror=null; this.src='images/corporativo/Camco/Etiquetas.png';">
-                      <h3>SET DE ETIQUETAS</h3>
-                      <p>Planilla gráfica de etiquetas para catálogo de productos.</p>
-                    </div>
-                  </div>
-
-                  <!-- REUBICADO AQUI SEGÚN INSTRUCCIONES -->
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">DISTINTIVO GENERAL</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Distintivo.png" alt="Distintivo General">
-                      <h3>DISTINTIVO GENERAL</h3>
-                      <p>Adaptación de imagen de marca para distintas plataformas.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 4: FICHAS TÉCNICAS -->
-            <div class="project-block">
-              <h3 class="tools-section-title">04. FICHAS TÉCNICAS</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">FORMATO PARA LAS FICHAS TÉCNICAS DE LOS MUEBLES</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">FICHA TÉCNICA (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Fichas (2).jpg" alt="Fichas 2">
-                      <h3>FICHA TÉCNICA 2</h3>
-                      <p>Formato esquemático y especificaciones técnicas del mueble.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">FICHA TÉCNICA (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Fichas (3).jpg" alt="Fichas 3">
-                      <h3>FICHA TÉCNICA 3</h3>
-                      <p>Formato esquemático y especificaciones técnicas del mueble.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 5: FONDOS PARA PONENCIA / ESCENARIO -->
-            <div class="project-block">
-              <h3 class="tools-section-title">05. FONDOS PARA PONENCIA / ESCENARIO</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">PROPUESTAS DE FONDO Y APLICACIÓN REAL</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">FONDO PROPUESTA (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Fondo (1).png" alt="Fondo 1">
-                      <h3>FONDO PROPUESTA 1</h3>
-                      <p>Propuesta gráfica de fondo para plática corporativa.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">FONDO PROPUESTA (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Fondo (2).png" alt="Fondo 2">
-                      <h3>FONDO PROPUESTA 2</h3>
-                      <p>Propuesta gráfica de fondo para plática corporativa.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">FONDO PROPUESTA (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Fondo (3).png" alt="Fondo 3">
-                      <h3>FONDO PROPUESTA 3</h3>
-                      <p>Propuesta gráfica de fondo para plática corporativa.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">FONDO PROPUESTA (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Fondo (4).png" alt="Fondo 4">
-                      <h3>FONDO PROPUESTA 4</h3>
-                      <p>Propuesta gráfica de fondo para plática corporativa.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">ESCENARIO EN CONTEXTO</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Fondo.jpg" alt="Fondo Escenario Real">
-                      <h3>ESCENARIO REAL</h3>
-                      <p>Ejemplo visual del escenario instalado en contexto de evento.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 6: PLANOS Y MEDIDAS DE MOBILIARIO -->
-            <div class="project-block">
-              <h3 class="tools-section-title">06. PLANOS Y MEDIDAS DE MOBILIARIO</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">ESQUEMAS DE MEDIDAS PARA MUEBLES ORIGINALE</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MEDIDAS PROPUESTAS (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Medidas propuestas (1).webp" alt="Medidas Propuestas 1" onerror="this.onerror=null; this.src='images/corporativo/Camco/Medidas propuestas (1).png';">
-                      <h3>ESQUEMA DE MEDIDAS 1</h3>
-                      <p>Cotas y acotaciones métricas para mobiliario original.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MEDIDAS PROPUESTAS (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Medidas propuestas (2).webp" alt="Medidas Propuestas 2" onerror="this.onerror=null; this.src='images/corporativo/Camco/Medidas propuestas (2).png';">
-                      <h3>ESQUEMA DE MEDIDAS 2</h3>
-                      <p>Cotas y acotaciones métricas para mobiliario original.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MEDIDAS PROPUESTAS (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Medidas propuestas (3).webp" alt="Medidas Propuestas 3" onerror="this.onerror=null; this.src='images/corporativo/Camco/Medidas propuestas (3).png';">
-                      <h3>ESQUEMA DE MEDIDAS 3</h3>
-                      <p>Cotas y acotaciones métricas para mobiliario original.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 7: MUESTRARIOS DE MATERIALES -->
-            <div class="project-block">
-              <h3 class="tools-section-title">07. MUESTRARIOS DE MATERIALES</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">MUESTRARIOS Y ACABADOS DE MADERAS</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MUESTRARIO (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Muestrario (1).jpg" alt="Muestrario 1">
-                      <h3>MUESTRARIO DE ACABADOS 1</h3>
-                      <p>Catálogo de vetas, maderas y tonalidades corporativas.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">MUESTRARIO (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Muestrario (2).jpg" alt="Muestrario 2">
-                      <h3>MUESTRARIO DE ACABADOS 2</h3>
-                      <p>Catálogo de vetas, maderas y tonalidades corporativas.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 8: PROYECTO ESPECIAL "OMNI" (HOTEL) -->
-            <div class="project-block">
-              <h3 class="tools-section-title">08. PROYECTO ESPECIAL "OMNI" (HOTEL)</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">DISEÑO Y PROPUESTA DE PEDIDO PERSONALIZADO PARA HOTEL</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTA OMNI (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/OMNI (3).webp" alt="OMNI 3" onerror="this.onerror=null; this.src='images/corporativo/Camco/OMNI (3).png';">
-                      <h3>PROYECTO HOTELERO OMNI 3</h3>
-                      <p>Plano técnico y despiece para proyecto hotelero.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTA OMNI (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/OMNI (4).webp" alt="OMNI 4" onerror="this.onerror=null; this.src='images/corporativo/Camco/OMNI (4).png';">
-                      <h3>PROYECTO HOTELERO OMNI 4</h3>
-                      <p>Plano técnico y despiece para proyecto hotelero.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTA OMNI (5)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/OMNI (5).webp" alt="OMNI 5" onerror="this.onerror=null; this.src='images/corporativo/Camco/OMNI (5).png';">
-                      <h3>PROYECTO HOTELERO OMNI 5</h3>
-                      <p>Plano técnico y despiece para proyecto hotelero.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTA OMNI (9)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/OMNI (9).webp" alt="OMNI 9" onerror="this.onerror=null; this.src='images/corporativo/Camco/OMNI (9).png';">
-                      <h3>PROYECTO HOTELERO OMNI 9</h3>
-                      <p>Plano técnico y despiece para proyecto hotelero.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 9: PROPUESTAS PARA FABRICACIÓN -->
-            <div class="project-block">
-              <h3 class="tools-section-title">09. PROPUESTAS PARA FABRICACIÓN</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">EJEMPLOS DE MUEBLES PARA FABRICACIÓN</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTAS B (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Propuestas B (1).webp" alt="Propuestas B 1" onerror="this.onerror=null; this.src='images/corporativo/Camco/Propuestas B (1).png';">
-                      <h3>MODELO PARA FABRICACIÓN 1</h3>
-                      <p>Muestras visuales con cotas y modelo real en entorno.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTAS B (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Propuestas B (2).webp" alt="Propuestas B 2" onerror="this.onerror=null; this.src='images/corporativo/Camco/Propuestas B (2).png';">
-                      <h3>MODELO PARA FABRICACIÓN 2</h3>
-                      <p>Muestras visuales con cotas y modelo real en entorno.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTAS B (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Propuestas B (3).webp" alt="Propuestas B 3" onerror="this.onerror=null; this.src='images/corporativo/Camco/Propuestas B (3).png';">
-                      <h3>MODELO PARA FABRICACIÓN 3</h3>
-                      <p>Muestras visuales con cotas y modelo real en entorno.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTAS B (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Propuestas B (4).webp" alt="Propuestas B 4" onerror="this.onerror=null; this.src='images/corporativo/Camco/Propuestas B (4).png';">
-                      <h3>MODELO PARA FABRICACIÓN 4</h3>
-                      <p>Muestras visuales con cotas y modelo real en entorno.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">PROPUESTAS B (5)</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Propuestas B (5).webp" alt="Propuestas B 5" onerror="this.onerror=null; this.src='images/corporativo/Camco/Propuestas B (5).png';">
-                      <h3>MODELO PARA FABRICACIÓN 5</h3>
-                      <p>Muestras visuales con cotas y modelo real en entorno.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 10: APOYOS PARA EXPOSICIÓN (ABASTUR CDMX) -->
-            <div class="project-block">
-              <h3 class="tools-section-title">10. APOYOS PARA EXPOSICIÓN (ABASTUR CDMX)</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">MATERIAL DE APOYO PARA LA ORGANIZACIÓN DE EXPO ABASTUR CDMX</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SOPORTE ABASTUR</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Soporte Abastur.webp" alt="Soporte Abastur" onerror="this.onerror=null; this.src='images/corporativo/Camco/Soporte Abastur.png';">
-                      <h3>SOPORTE TÉCNICO ABASTUR</h3>
-                      <p>Diagramas de instalación y logística organizativa.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">STAND EXPO 7</span></div>
-                    <div class="card-body">
-                      <img src="images/corporativo/Camco/Stand expo 7.webp" alt="Stand Expo 7" onerror="this.onerror=null; this.src='images/corporativo/Camco/Stand expo 7.png';">
-                      <h3>LAYOUT STAND EXPO</h3>
-                      <p>Layout y distribución gráfica de elementos del stand.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 11: CIERRE AUDIOVISUAL -->
-            <div class="project-block">
-              <h3 class="tools-section-title">11. CIERRE AUDIOVISUAL</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">OUTRO PARA PIEZAS AUDIOVISUALES</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window">
-                    <div class="card-header-accent"><span class="window-title-accent">OUTRO CAMCO</span></div>
-                    <div class="card-body">
-                      <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1.5px solid var(--turquesa); background-color: var(--casi-negro-solido);">
-                        <source src="images/corporativo/Camco/Outro.mp4" type="video/mp4">
-                        Tu navegador no soporta la reproducción de video.
-                      </video>
-                      <h3>OUTRO ANIMADO</h3>
-                      <p>Video de cierre (outro) para piezas audiovisuales de la marca.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 6. CONTENIDO REDES -->
-    <section id="window-social" class="window window-modal anim-social-feed" onmousedown="bringToFront('window-social')" ontouchstart="bringToFront('window-social')">
-      <div class="window-header" onmousedown="startDragging(event, 'window-social')" ontouchstart="startDraggingTouch(event, 'window-social')">
-        <span class="window-title">Contenido Redes — Orbimedix & CAMCO</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-social')">_</button>
-          <button onclick="toggleMaximize('window-social')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-social')">X</button>
-        </div>
-      </div>
-      <div class="window-body">
-
-        <div class="projects-two-columns">
-
-          <!-- COLUMNA IZQUIERDA: ORBIMEDIX -->
-          <div class="column-brand">
-            <div class="brand-column-header">
-              <h2>ORBIMEDIX</h2>
-            </div>
-
-            <!-- BLOQUE 1: CÁPSULAS INFORMATIVAS / ENTREVISTAS -->
-            <div class="project-block">
-              <h3 class="tools-section-title">01. CÁPSULAS INFORMATIVAS / ENTREVISTAS</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">PRODUCCIÓN Y GRABACIÓN</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CÁPSULAS (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Capsulas (1).webp" alt="Capsulas 1" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Capsulas (1).png';">
-                      <h3>CÁPSULAS 1</h3>
-                      <p>Participación: Producción y grabación.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CÁPSULAS (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Capsulas (2).webp" alt="Capsulas 2" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Capsulas (2).png';">
-                      <h3>CÁPSULAS 2</h3>
-                      <p>Participación: Producción y grabación.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CÁPSULAS (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Capsulas (3).webp" alt="Capsulas 3" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Capsulas (3).png';">
-                      <h3>CÁPSULAS 3</h3>
-                      <p>Participación: Producción y grabación.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 2: CONTENIDO PARA MMCC -->
-            <div class="project-block">
-              <h3 class="tools-section-title">02. CONTENIDO PARA MMCC</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">POSTS INFORMATIVOS Y PROMOCIONALES</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO MMCC (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Contenido MMCC (1).webp" alt="Contenido MMCC 1" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Contenido MMCC (1).png';">
-                      <h3>CONTENIDO MMCC 1</h3>
-                      <p>Posts informativos y promocionales para redes de MMCC.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO MMCC (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Contenido MMCC (2).webp" alt="Contenido MMCC 2" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Contenido MMCC (2).png';">
-                      <h3>CONTENIDO MMCC 2</h3>
-                      <p>Posts informativos y promocionales para redes de MMCC.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO MMCC (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Contenido MMCC (3).webp" alt="Contenido MMCC 3" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Contenido MMCC (3).png';">
-                      <h3>CONTENIDO MMCC 3</h3>
-                      <p>Posts informativos y promocionales para redes de MMCC.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO MMCC (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Contenido MMCC (4).webp" alt="Contenido MMCC 4" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Contenido MMCC (4).png';">
-                      <h3>CONTENIDO MMCC 4</h3>
-                      <p>Posts informativos y promocionales para redes de MMCC.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 3: CONTENIDO PUBLICITARIO Y REDES SOCIALES -->
-            <div class="project-block">
-              <h3 class="tools-section-title">03. CONTENIDO PUBLICITARIO Y REDES SOCIALES</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">GRÁFICOS PROMOCIONALES & SALUD VISUAL</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO REDES (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Contenido redes (1).webp" alt="Contenido redes 1" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Contenido redes (1).png';">
-                      <h3>CONTENIDO REDES 1</h3>
-                      <p>Gráficos promocionales, datos médicos y campañas de salud visual.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO REDES (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Contenido redes (2).webp" alt="Contenido redes 2" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Contenido redes (2).png';">
-                      <h3>CONTENIDO REDES 2</h3>
-                      <p>Gráficos promocionales, datos médicos y campañas de salud visual.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO REDES (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Contenido redes (3).webp" alt="Contenido redes 3" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Contenido redes (3).png';">
-                      <h3>CONTENIDO REDES 3</h3>
-                      <p>Gráficos promocionales, datos médicos y campañas de salud visual.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO REDES (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Contenido redes (4).webp" alt="Contenido redes 4" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Contenido redes (4).png';">
-                      <h3>CONTENIDO REDES 4</h3>
-                      <p>Gráficos promocionales, datos médicos y campañas de salud visual.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 4: PRODUCCIÓN AUDIOVISUAL — COBERTURA EN QUIRÓFANO -->
-            <div class="project-block">
-              <h3 class="tools-section-title">04. PRODUCCIÓN AUDIOVISUAL — COBERTURA EN QUIRÓFANO</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">GRABACIÓN EN QUIRÓFANO</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">GRABACIÓN EN QUIRÓFANO (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Grabación en quirófano (1).webp" alt="Grabación quirófano 1" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Grabación en quirófano (1).png';">
-                      <h3>QUIRÓFANO 1</h3>
-                      <p>Participación: Producción y grabación.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">GRABACIÓN EN QUIRÓFANO (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Grabación en quirófano (2).webp" alt="Grabación quirófano 2" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Grabación en quirófano (2).png';">
-                      <h3>QUIRÓFANO 2</h3>
-                      <p>Participación: Producción y grabación.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">GRABACIÓN EN QUIRÓFANO (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Grabación en quirófano (3).webp" alt="Grabación quirófano 3" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Grabación en quirófano (3).png';">
-                      <h3>QUIRÓFANO 3</h3>
-                      <p>Participación: Producción y grabación.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">GRABACIÓN EN QUIRÓFANO (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Grabación en quirófano (4).webp" alt="Grabación quirófano 4" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Grabación en quirófano (4).png';">
-                      <h3>QUIRÓFANO 4</h3>
-                      <p>Participación: Producción y grabación.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 5: REELS CORTOS / FORMATO VERTICAL -->
-            <div class="project-block">
-              <h3 class="tools-section-title">05. REELS CORTOS / FORMATO VERTICAL</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">EDICIÓN DINÁMICA DE VIDEO</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">REEL CORTO (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Reel corto (1).webp" alt="Reel corto 1" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Reel corto (1).png';">
-                      <h3>REEL CORTO 1</h3>
-                      <p>Edición de videos cortos dinámicos para Instagram Reels y TikTok.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">REEL CORTO (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Reel corto (2).webp" alt="Reel corto 2" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Reel corto (2).png';">
-                      <h3>REEL CORTO 2</h3>
-                      <p>Edición de videos cortos dinámicos para Instagram Reels y TikTok.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">REEL CORTO (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/orbimedix/Reel corto (3).webp" alt="Reel corto 3" onerror="this.onerror=null; this.src='images/redes sociales/orbimedix/Reel corto (3).png';">
-                      <h3>REEL CORTO 3</h3>
-                      <p>Edición de videos cortos dinámicos para Instagram Reels y TikTok.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- COLUMNA DERECHA: CAMCO -->
-          <div class="column-brand">
-            <div class="brand-column-header">
-              <h2>CAMCO</h2>
-            </div>
-
-            <!-- BLOQUE 1: CAMPAÑA MUNDIAL -->
-            <div class="project-block">
-              <h3 class="tools-section-title">01. CAMPAÑA MUNDIAL</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">PUBLICIDAD Y PROMOCIONES TEMÁTICAS</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CAMPAÑA MUNDIAL (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Campaña mundial (1).jpg" alt="Campaña mundial 1">
-                      <h3>CAMPAÑA MUNDIAL 1</h3>
-                      <p>Diseños publicitarios y promocionales temáticos para la campaña del Mundial.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CAMPAÑA MUNDIAL (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Campaña mundial (2).jpg" alt="Campaña mundial 2">
-                      <h3>CAMPAÑA MUNDIAL 2</h3>
-                      <p>Diseños publicitarios y promocionales temáticos para la campaña del Mundial.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CAMPAÑA MUNDIAL (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Campaña mundial (3).jpg" alt="Campaña mundial 3">
-                      <h3>CAMPAÑA MUNDIAL 3</h3>
-                      <p>Diseños publicitarios y promocionales temáticos para la campaña del Mundial.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 2: CONTENIDO PARA REDES SOCIALES -->
-            <div class="project-block">
-              <h3 class="tools-section-title">02. CONTENIDO PARA REDES SOCIALES</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">PUBLICACIONES ORGÁNICAS Y EXPOS</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO REDES (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Contenido Redes (1).jpg" alt="Contenido Redes 1">
-                      <h3>CONTENIDO REDES 1</h3>
-                      <p>Gráficos para publicaciones orgánicas y promoción de eventos/expos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO REDES (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Contenido Redes (2).jpg" alt="Contenido Redes 2">
-                      <h3>CONTENIDO REDES 2</h3>
-                      <p>Gráficos para publicaciones orgánicas y promoción de eventos/expos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO REDES (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Contenido Redes (3).jpg" alt="Contenido Redes 3">
-                      <h3>CONTENIDO REDES 3</h3>
-                      <p>Gráficos para publicaciones orgánicas y promoción de eventos/expos.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 3: CONTENIDO ENFOCADO A VENTAS -->
-            <div class="project-block">
-              <h3 class="tools-section-title">03. CONTENIDO ENFOCADO A VENTAS</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">BANNERS, PROMOS Y SOLICITUDES DE VENTAS</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO VENTAS (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Contenido Ventas (1).jpg" alt="Contenido Ventas 1">
-                      <h3>CONTENIDO VENTAS 1</h3>
-                      <p>Banners y posts orientados a la promoción de productos específicos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO VENTAS (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Contenido Ventas (2).jpg" alt="Contenido Ventas 2">
-                      <h3>CONTENIDO VENTAS 2</h3>
-                      <p>Banners y posts orientados a la promoción de productos específicos.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO VENTAS (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Contenido Ventas (3).jpg" alt="Contenido Ventas 3">
-                      <h3>CONTENIDO VENTAS 3</h3>
-                      <p>Material desarrollado a petición del equipo de ventas bajo especificaciones puntuales.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CONTENIDO VENTAS (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Contenido Ventas (4).jpg" alt="Contenido Ventas 4">
-                      <h3>CONTENIDO VENTAS 4</h3>
-                      <p>Post informativo de promoción de línea.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 4: CONTENIDO CON TEXTO -->
-            <div class="project-block">
-              <h3 class="tools-section-title">04. CONTENIDO CON TEXTO</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">POSTS CON INSERCIÓN TIPOGRÁFICA</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CTEXTO (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/CTexto (1).jpg" alt="CTexto 1">
-                      <h3>CTEXTO 1</h3>
-                      <p>Post con texto en imagen.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CTEXTO (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/CTexto (2).jpg" alt="CTexto 2">
-                      <h3>CTEXTO 2</h3>
-                      <p>Post con texto en imagen.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CTEXTO (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/CTexto (3).jpg" alt="CTexto 3">
-                      <h3>CTEXTO 3</h3>
-                      <p>Post con texto en imagen.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">CTEXTO (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/CTexto (4).jpg" alt="CTexto 4">
-                      <h3>CTEXTO 4</h3>
-                      <p>Post con texto en imagen.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 5: FOTOGRAFÍAS DE PRODUCTO Y AMBIENTACIÓN -->
-            <div class="project-block">
-              <h3 class="tools-section-title">05. FOTOGRAFÍAS DE PRODUCTO Y AMBIENTACIÓN (SIN TEXTO)</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">REGISTRO FOTOGRÁFICO DE PRODUCTO</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">FOTO (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Foto (1).jpg" alt="Foto 1">
-                      <h3>FOTO 1</h3>
-                      <p>Solo imagen sin texto.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">FOTO (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Foto (2).jpg" alt="Foto 2">
-                      <h3>FOTO 2</h3>
-                      <p>Solo imagen sin texto.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">FOTO (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Foto (3).jpg" alt="Foto 3">
-                      <h3>FOTO 3</h3>
-                      <p>Solo imagen sin texto.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">FOTO (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Foto (4).jpg" alt="Foto 4">
-                      <h3>FOTO 4</h3>
-                      <p>Solo imagen sin texto.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <!-- BLOQUE 6: CARRUSELES / SLIDES (SIN TEXTO) -->
-            <div class="project-block">
-              <h3 class="tools-section-title">06. CARRUSELES / SLIDES (SIN TEXTO)</h3>
-              <div class="block-subgroup">
-                <h4 class="subgroup-title">SECUENCIA DE SLIDES PARA REDES</h4>
-                <div class="grid-proyectos">
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SLIDES (1)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Slides (1).jpg" alt="Slides 1">
-                      <h3>SLIDES 1</h3>
-                      <p>Solo imagen sin texto.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SLIDES (2)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Slides (2).jpg" alt="Slides 2">
-                      <h3>SLIDES 2</h3>
-                      <p>Solo imagen sin texto.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SLIDES (3)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Slides (3).jpg" alt="Slides 3">
-                      <h3>SLIDES 3</h3>
-                      <p>Solo imagen sin texto.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SLIDES (4)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Slides (4).jpg" alt="Slides 4">
-                      <h3>SLIDES 4</h3>
-                      <p>Solo imagen sin texto.</p>
-                    </div>
-                  </div>
-
-                  <div class="sub-window clickable-card" onclick="openProjectionModal(this)">
-                    <div class="card-header-accent"><span class="window-title-accent">SLIDES (5)</span></div>
-                    <div class="card-body">
-                      <img src="images/redes sociales/camco/Slides (5).jpg" alt="Slides 5">
-                      <h3>SLIDES 5</h3>
-                      <p>Solo imagen sin texto.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 7. OTROS PROYECTOS (YOUNG CLUB) -->
-    <section id="window-other" class="window window-modal anim-sketch-draw" onmousedown="bringToFront('window-other')" ontouchstart="bringToFront('window-other')">
-      <div class="window-header" onmousedown="startDragging(event, 'window-other')" ontouchstart="startDraggingTouch(event, 'window-other')">
-        <span class="window-title">Otros Proyectos — Young Club</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-other')">_</button>
-          <button onclick="toggleMaximize('window-other')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-other')">X</button>
-        </div>
-      </div>
-      <div class="window-body">
-        
-        <div class="project-block">
-          <h3 class="tools-section-title">DISEÑOS DE PLAYERAS DE YOUNG CLUB</h3>
-          <div class="block-subgroup">
-            <h4 class="subgroup-title">MUESTRAS AUDIOVISUALES DE PROTOTIPOS Y MODELOS</h4>
-            <div class="grid-proyectos">
-
-              <div class="sub-window">
-                <div class="card-header-accent"><span class="window-title-accent">YOUNG CLUB — MODELO 01</span></div>
-                <div class="card-body">
-                  <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1.5px solid var(--turquesa); background-color: var(--casi-negro-solido);">
-                    <source src="images/otros/Video (1).mp4" type="video/mp4">
-                    Tu navegador no soporta la reproducción de video.
-                  </video>
-                  <h3>DISEÑO DE PLAYERA 1</h3>
-                  <p>Muestra audiovisual de diseño para Young Club.</p>
-                </div>
-              </div>
-
-              <div class="sub-window">
-                <div class="card-header-accent"><span class="window-title-accent">YOUNG CLUB — MODELO 02</span></div>
-                <div class="card-body">
-                  <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1.5px solid var(--turquesa); background-color: var(--casi-negro-solido);">
-                    <source src="images/otros/Video (2).mp4" type="video/mp4">
-                    Tu navegador no soporta la reproducción de video.
-                  </video>
-                  <h3>DISEÑO DE PLAYERA 2</h3>
-                  <p>Muestra audiovisual de diseño para Young Club.</p>
-                </div>
-              </div>
-
-              <div class="sub-window">
-                <div class="card-header-accent"><span class="window-title-accent">YOUNG CLUB — MODELO 03</span></div>
-                <div class="card-body">
-                  <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1.5px solid var(--turquesa); background-color: var(--casi-negro-solido);">
-                    <source src="images/otros/Video (3).mp4" type="video/mp4">
-                    Tu navegador no soporta la reproducción de video.
-                  </video>
-                  <h3>DISEÑO DE PLAYERA 3</h3>
-                  <p>Muestra audiovisual de diseño para Young Club.</p>
-                </div>
-              </div>
-
-              <div class="sub-window">
-                <div class="card-header-accent"><span class="window-title-accent">YOUNG CLUB — MODELO 04</span></div>
-                <div class="card-body">
-                  <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1.5px solid var(--turquesa); background-color: var(--casi-negro-solido);">
-                    <source src="images/otros/Video (4).mp4" type="video/mp4">
-                    Tu navegador no soporta la reproducción de video.
-                  </video>
-                  <h3>DISEÑO DE PLAYERA 4</h3>
-                  <p>Muestra audiovisual de diseño para Young Club.</p>
-                </div>
-              </div>
-
-              <div class="sub-window">
-                <div class="card-header-accent"><span class="window-title-accent">YOUNG CLUB — MODELO 05</span></div>
-                <div class="card-body">
-                  <video controls preload="metadata" style="width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1.5px solid var(--turquesa); background-color: var(--casi-negro-solido);">
-                    <source src="images/otros/Video (5).mp4" type="video/mp4">
-                    Tu navegador no soporta la reproducción de video.
-                  </video>
-                  <h3>DISEÑO DE PLAYERA 5</h3>
-                  <p>Muestra audiovisual de diseño para Young Club.</p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 8. CONTACTO -->
-    <section id="window-contact" class="window window-modal anim-message-open" onmousedown="bringToFront('window-contact')" ontouchstart="bringToFront('window-contact')">
-      <div class="window-header" onmousedown="startDragging(event, 'window-contact')" ontouchstart="startDraggingTouch(event, 'window-contact')">
-        <span class="window-title">Contacto</span>
-        <div class="window-controls">
-          <button onclick="minimizeWindow('window-contact')">_</button>
-          <button onclick="toggleMaximize('window-contact')">□</button>
-          <button class="close-btn" onclick="closeWindow('window-contact')">X</button>
-        </div>
-      </div>
-      <div class="window-body contact-window-body">
-        <h2 class="contact-heading">Contáctame a través de:</h2>
-        
-        <div class="contact-container">
-          <!-- DESTACADO PRINCIPAL: WHATSAPP EN RECTÁNGULO TURQUESA -->
-          <div class="contact-card-primary">
-            <span class="contact-type-label">WHATSAPP (PRINCIPAL)</span>
-            <div class="contact-main-value">(+52) 33 2288 4844</div>
-          </div>
-
-          <!-- DATO SECUNDARIO: EMAIL -->
-          <div class="contact-card-secondary">
-            <span class="contact-type-label">CORREO ELECTRÓNICO</span>
-            <div class="contact-sec-value">yaelcardenas20@gmail.com</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- BARRA DE TAREAS INFERIOR DINÁMICA (CORREO REMOVIDO) -->
-  <footer class="taskbar-bottom">
-    <button class="start-logo-btn" onclick="returnToBootScreen()" title="Regresar a la pantalla de inicio">
-      <img src="images/mat pag/Gato Bolitas.svg" alt="Gato Bolitas" class="start-logo-img" onerror="this.onerror=null; this.src='images/mat pag/Gato Bolitas.png';">
-    </button>
-
-    <div class="active-tasks" id="active-tasks"></div>
-  </footer>
-
-  <!-- SCRIPTS DE INTERACCIÓN Y LÓGICA -->
-  <script>
-    /* ==========================================
-       PROYECCIÓN EN MODAL ÚNICAMENTE POR CLIC
-       ========================================== */
-    function openProjectionModal(cardElement) {
-      const titleText = cardElement.querySelector('.window-title-accent')?.innerText || 'PROYECCIÓN DE ARCHIVO';
-      const imgElement = cardElement.querySelector('img');
-      const imgSrc = imgElement ? imgElement.src : '';
-      const subText = cardElement.querySelector('h3')?.innerText || '';
-      const descText = cardElement.querySelector('p')?.innerText || '';
-
-      const lightbox = document.getElementById('image-lightbox');
-      document.getElementById('lightbox-title').innerText = titleText;
-      document.getElementById('lightbox-img').src = imgSrc;
-      document.getElementById('lightbox-sub').innerText = subText;
-      document.getElementById('lightbox-desc').innerText = descText;
-
-      lightbox.classList.add('visible');
-    }
-
-    function closeProjectionModal(event) {
-      if (event) event.stopPropagation();
-      const lightbox = document.getElementById('image-lightbox');
-      if (lightbox) {
-        lightbox.classList.remove('visible');
-      }
-    }
-
-    function closeLightboxOnBackdrop(event) {
-      if (event.target.id === 'image-lightbox') {
-        closeProjectionModal(event);
-      }
-    }
-
-    /* ==========================================
-       LÓGICA GENERAL DEL SISTEMA Y VENTANAS
-       ========================================== */
-    function startSystem() {
-      const docEl = document.documentElement;
-      if (docEl.requestFullscreen) {
-        docEl.requestFullscreen().catch(() => {});
-      } else if (docEl.webkitRequestFullscreen) {
-        docEl.webkitRequestFullscreen().catch(() => {});
-      } else if (docEl.msRequestFullscreen) {
-        docEl.msRequestFullscreen().catch(() => {});
-      }
-
-      const bootScreen = document.getElementById('boot-screen');
-      if (bootScreen) {
-        bootScreen.classList.add('fade-out');
-        setTimeout(() => {
-          bootScreen.style.display = 'none';
-        }, 500);
-      }
-    }
-
-    function returnToBootScreen() {
-      const bootScreen = document.getElementById('boot-screen');
-      if (bootScreen) {
-        bootScreen.style.display = 'flex';
-        void bootScreen.offsetWidth;
-        bootScreen.classList.remove('fade-out');
-      }
-    }
-
-    async function initCustomCursor() {
-      const cursorImg = new Image();
-      cursorImg.src = 'images/mat pag/cursor.png';
-      
-      cursorImg.onerror = async () => {
-        try {
-          const res = await fetch('images/mat pag/cursor.svg');
-          if (res.ok) {
-            let svgText = await res.text();
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(svgText, "image/svg+xml");
-            const svgEl = xmlDoc.querySelector("svg");
-            if (svgEl) {
-              svgEl.setAttribute("width", "32");
-              svgEl.setAttribute("height", "32");
-              const encoded = encodeURIComponent(new XMLSerializer().serializeToString(svgEl));
-              const cursorUrl = `url("data:image/svg+xml,${encoded}") 0 0, auto`;
-              applyCursorStyle(cursorUrl);
-            }
-          }
-        } catch (e) {}
-      };
-
-      cursorImg.onload = () => {
-        applyCursorStyle(`url('images/mat pag/cursor.png') 0 0, auto`);
-      };
-    }
-
-    function applyCursorStyle(cursorRule) {
-      document.body.style.cursor = cursorRule;
-      const styleSheet = document.createElement("style");
-      styleSheet.innerText = `
-        button, a, .window-header, .desktop-icon, .taskbar-tab, .boot-screen, .bg-illustration-wrapper, #cat-img, .clickable-card {
-          cursor: ${cursorRule};
-        }
-      `;
-      document.head.appendChild(styleSheet);
-    }
-
-    initCustomCursor();
-
-    function triggerCatWiggle(e) {
-      if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      const cat = document.getElementById('cat-img');
-      if (!cat) return;
-
-      cat.classList.remove('is-wiggling');
-      void cat.offsetWidth;
-      cat.classList.add('is-wiggling');
-
-      setTimeout(() => {
-        cat.classList.remove('is-wiggling');
-      }, 600);
-    }
-
-    const canvas = document.getElementById('grid-canvas');
-    const ctx = canvas.getContext('2d');
-
-    const cellSize = 32;
-    let cols, rows;
-    let gridOpacity = [];
-    let mouse = { x: -1000, y: -1000, radius: 75 };
-    let ripples = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      cols = Math.ceil(canvas.width / cellSize);
-      rows = Math.ceil(canvas.height / cellSize);
-      gridOpacity = new Float32Array(cols * rows);
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function updateCatMouseGlow(clientX, clientY) {
-      const catWrapper = document.getElementById('cat-wrapper');
-      if (catWrapper) {
-        const rect = catWrapper.getBoundingClientRect();
-        catWrapper.style.setProperty('--cat-mouse-x', `${clientX - rect.left}px`);
-        catWrapper.style.setProperty('--cat-mouse-y', `${clientY - rect.top}px`);
-      }
-    }
-
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      updateCatMouseGlow(e.clientX, e.clientY);
-    });
-
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        const touch = e.touches[0];
-        mouse.x = touch.clientX;
-        mouse.y = touch.clientY;
-        updateCatMouseGlow(touch.clientX, touch.clientY);
-      }
-    });
-
-    function triggerRipple(clientX, clientY) {
-      ripples.push({
-        x: clientX,
-        y: clientY,
-        radius: 0,
-        maxRadius: 350,
-        speed: 9,
-        thickness: 45,
-        opacity: 1.0
-      });
-    }
-
-    window.addEventListener('click', (e) => triggerRipple(e.clientX, e.clientY));
-    window.addEventListener('touchstart', (e) => {
-      if (e.touches.length > 0) {
-        triggerRipple(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    });
-
-    function drawGrid() {
-      ctx.fillStyle = '#2f2d3b';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = ripples.length - 1; i >= 0; i--) {
-        const r = ripples[i];
-        r.radius += r.speed;
-        r.opacity = 1 - (r.radius / r.maxRadius);
-
-        if (r.radius >= r.maxRadius || r.opacity <= 0) {
-          ripples.splice(i, 1);
-        }
-      }
-
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const index = r * cols + c;
-          const cellX = c * cellSize;
-          const cellY = r * cellSize;
-          const centerX = cellX + cellSize / 2;
-          const centerY = cellY + cellSize / 2;
-
-          const distMouse = Math.hypot(mouse.x - centerX, mouse.y - centerY);
-          let targetOpacity = 0;
-
-          if (distMouse < mouse.radius) {
-            targetOpacity = (1 - distMouse / mouse.radius);
-          }
-
-          for (const ripple of ripples) {
-            const distRipple = Math.hypot(ripple.x - centerX, ripple.y - centerY);
-            const ringDist = Math.abs(distRipple - ripple.radius);
-
-            if (ringDist < ripple.thickness) {
-              const rippleIntensity = (1 - ringDist / ripple.thickness) * ripple.opacity;
-              if (rippleIntensity > targetOpacity) {
-                targetOpacity = rippleIntensity;
-              }
-            }
-          }
-
-          if (targetOpacity > gridOpacity[index]) {
-            gridOpacity[index] = targetOpacity;
-          } else {
-            gridOpacity[index] *= 0.91;
-          }
-
-          const currentOpacity = gridOpacity[index];
-          const baseAlpha = 0.08;
-          const lineAlpha = baseAlpha + (currentOpacity * 0.92);
-          const lineWidth = 1 + (currentOpacity * 1.5);
-
-          ctx.strokeStyle = `rgba(141, 204, 187, ${lineAlpha})`;
-          ctx.lineWidth = lineWidth;
-          ctx.strokeRect(cellX, cellY, cellSize, cellSize);
-        }
-      }
-
-      requestAnimationFrame(drawGrid);
-    }
-
-    drawGrid();
-
-    let zIndexCounter = 100;
-    let activeWindows = {};
-    let windowOpenOrderCounter = 0;
-
-    /* ============================================================
-       CÁLCULO DINÁMICO DE TAMAÑO PROPORCIONAL Y POSICIÓN DISTRIBUIDA
-       ============================================================ */
-    function calculateWindowPosition(win) {
-      if (win.dataset.hasBeenPlaced === "true") return;
-
-      const screenW = window.innerWidth;
-      const screenH = window.innerHeight - 50;
-
-      // 1. Renderizado temporal invisible para medir el contenido exacto
-      win.style.visibility = 'hidden';
-      win.style.display = 'flex';
-      win.style.width = 'auto';
-      win.style.height = 'auto';
-
-      // 2. Límites proporcionales según tipo de pantalla
-      const isMobile = screenW <= 600;
-      
-      const maxW = isMobile ? screenW * 0.94 : Math.min(880, screenW * 0.72);
-      const maxH = isMobile ? screenH * 0.85 : Math.min(680, screenH * 0.78);
-      const minW = isMobile ? Math.min(290, screenW * 0.9) : 360;
-      const minH = isMobile ? 220 : 260;
-
-      let contentW = win.scrollWidth;
-      let contentH = win.scrollHeight;
-
-      let finalW = Math.max(minW, Math.min(contentW + 10, maxW));
-      let finalH = Math.max(minH, Math.min(contentH + 10, maxH));
-
-      // 3. Restaurar visibilidad y aplicar medidas
-      win.style.display = '';
-      win.style.visibility = '';
-      win.style.width = `${finalW}px`;
-      win.style.height = `${finalH}px`;
-
-      // 4. Ubicación por zonas diferenciadas (cuadrantes / escalonado)
-      if (isMobile) {
-        const left = Math.max(5, (screenW - finalW) / 2);
-        const topStep = (windowOpenOrderCounter % 3) * 18;
-        const top = Math.min(screenH - finalH - 10, 15 + topStep);
-
-        win.style.left = `${left}px`;
-        win.style.top = `${top}px`;
-      } else {
-        const quadrant = windowOpenOrderCounter % 4;
-        const cascadeOffset = (Math.floor(windowOpenOrderCounter / 4) % 5) * 30;
-
-        let left = 20;
-        let top = 20;
-
-        const maxLeft = Math.max(20, screenW - finalW - 20);
-        const maxTop = Math.max(20, screenH - finalH - 20);
-
-        switch (quadrant) {
-          case 0:
-            left = Math.min(maxLeft, 110 + cascadeOffset);
-            top = Math.min(maxTop, 30 + cascadeOffset);
-            break;
-          case 1:
-            left = Math.max(20, screenW - finalW - 40 - cascadeOffset);
-            top = Math.min(maxTop, 30 + cascadeOffset);
-            break;
-          case 2:
-            left = Math.min(maxLeft, 110 + cascadeOffset);
-            top = Math.max(20, screenH - finalH - 50 - cascadeOffset);
-            break;
-          case 3:
-            left = Math.max(20, screenW - finalW - 40 - cascadeOffset);
-            top = Math.max(20, screenH - finalH - 50 - cascadeOffset);
-            break;
-        }
-
-        win.style.left = `${left}px`;
-        win.style.top = `${top}px`;
-      }
-
-      win.style.margin = '0';
-      win.dataset.hasBeenPlaced = "true";
-      windowOpenOrderCounter++;
-    }
-
-    function bringToFront(id) {
-      const win = document.getElementById(id);
-      if (win) {
-        zIndexCounter++;
-        win.style.zIndex = zIndexCounter;
-        updateTaskbar();
-      }
-    }
-
-    function openWindow(id, title, iconSrc) {
-      const win = document.getElementById(id);
-      if (!win) return;
-
-      zIndexCounter++;
-      win.style.zIndex = zIndexCounter;
-
-      calculateWindowPosition(win);
-
-      const triggerBtn = event ? event.currentTarget : null;
-      if (triggerBtn && triggerBtn.classList.contains('desktop-icon')) {
-        triggerBtn.classList.add('is-open');
-        triggerBtn.setAttribute('data-window-id', id);
-      }
-
-      if (!win.classList.contains('active')) {
-        win.classList.remove('is-closing', 'minimized');
-        win.classList.add('active');
-        activeWindows[id] = { title: title, icon: iconSrc };
-        updateTaskbar();
-      } else if (win.classList.contains('minimized')) {
-        win.classList.remove('minimized', 'is-closing');
-        updateTaskbar();
-      } else {
-        bringToFront(id);
-      }
-    }
-
-    function closeWindow(id) {
-      const win = document.getElementById(id);
-      if (win && win.classList.contains('active')) {
-        win.classList.add('is-closing');
-        
-        setTimeout(() => {
-          win.classList.remove('active', 'maximized', 'minimized', 'is-closing');
-          delete activeWindows[id];
-
-          const openIcon = document.querySelector(`.desktop-icon[data-window-id="${id}"]`);
-          if (openIcon) {
-            openIcon.classList.remove('is-open');
-          }
-
-          updateTaskbar();
-        }, 350);
-      }
-    }
-
-    function minimizeWindow(id) {
-      const win = document.getElementById(id);
-      if (win) {
-        win.classList.add('minimized');
-        updateTaskbar();
-      }
-    }
-
-    function toggleMaximize(id) {
-      const win = document.getElementById(id);
-      if (win) {
-        win.classList.toggle('maximized');
-      }
-    }
-
-    function toggleWindowFromTaskbar(id) {
-      const win = document.getElementById(id);
-      if (!win) return;
-
-      const isMinimized = win.classList.contains('minimized');
-      const currentZ = parseInt(win.style.zIndex || 0);
-
-      let isTop = true;
-      Object.keys(activeWindows).forEach(otherId => {
-        if (otherId !== id) {
-          const otherWin = document.getElementById(otherId);
-          if (otherWin && !otherWin.classList.contains('minimized')) {
-            const otherZ = parseInt(otherWin.style.zIndex || 0);
-            if (otherZ > currentZ) {
-              isTop = false;
-            }
-          }
-        }
-      });
-
-      if (isMinimized) {
-        win.classList.remove('minimized', 'is-closing');
-        zIndexCounter++;
-        win.style.zIndex = zIndexCounter;
-      } else if (!isTop) {
-        zIndexCounter++;
-        win.style.zIndex = zIndexCounter;
-      } else {
-        win.classList.add('minimized');
-      }
-      
-      updateTaskbar();
-    }
-
-    function updateTaskbar() {
-      const container = document.getElementById('active-tasks');
-      container.innerHTML = '';
-
-      let topActiveWindowId = null;
-      let maxZ = -1;
-
-      Object.keys(activeWindows).forEach(id => {
-        const win = document.getElementById(id);
-        if (win && !win.classList.contains('minimized')) {
-          const z = parseInt(win.style.zIndex || 0);
-          if (z > maxZ) {
-            maxZ = z;
-            topActiveWindowId = id;
-          }
-        }
-      });
-
-      Object.keys(activeWindows).forEach(id => {
-        const item = activeWindows[id];
-        const win = document.getElementById(id);
-        const isMinimized = win.classList.contains('minimized');
-        const isTop = (id === topActiveWindowId) && !isMinimized;
-
-        const btn = document.createElement('button');
-        btn.className = `taskbar-tab ${isTop ? 'active-tab' : ''}`;
-        btn.title = item.title;
-        
-        const img = document.createElement('img');
-        img.src = item.icon;
-        img.className = 'taskbar-tab-icon';
-        img.onerror = () => { img.style.display = 'none'; };
-
-        btn.appendChild(img);
-        btn.onclick = () => toggleWindowFromTaskbar(id);
-        container.appendChild(btn);
-      });
-    }
-
-    let isDragging = false;
-    let isResizing = false;
-    let resizeEdge = '';
-    let currentWin = null;
-    let startX = 0, startY = 0;
-    let startW = 0, startH = 0, startLeft = 0, startTop = 0;
-    let offsetX = 0, offsetY = 0;
-
-    const EDGE_SIZE = 12;
-
-    function detectEdge(e, win) {
-      const rect = win.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      let edge = '';
-      if (y < EDGE_SIZE) edge += 'n';
-      else if (y > rect.height - EDGE_SIZE) edge += 's';
-
-      if (x < EDGE_SIZE) edge += 'w';
-      else if (x > rect.width - EDGE_SIZE) edge += 'e';
-
-      return edge;
-    }
-
-    function updateCursorForEdge(edge, win) {
-      if (!edge || win.classList.contains('maximized')) {
-        win.style.removeProperty('cursor');
-        return;
-      }
-      switch (edge) {
-        case 'n': case 's': win.style.setProperty('cursor', 'ns-resize', 'important'); break;
-        case 'e': case 'w': win.style.setProperty('cursor', 'ew-resize', 'important'); break;
-        case 'ne': case 'sw': win.style.setProperty('cursor', 'nesw-resize', 'important'); break;
-        case 'nw': case 'se': win.style.setProperty('cursor', 'nwse-resize', 'important'); break;
-        default: win.style.removeProperty('cursor'); break;
-      }
-    }
-
-    document.querySelectorAll('.window-modal').forEach(win => {
-      win.addEventListener('mousemove', (e) => {
-        if (isResizing || isDragging) return;
-        const edge = detectEdge(e, win);
-        updateCursorForEdge(edge, win);
-      });
-
-      win.addEventListener('mouseleave', () => {
-        if (!isResizing && !isDragging) {
-          win.style.removeProperty('cursor');
-        }
-      });
-
-      win.addEventListener('mousedown', (e) => {
-        if (e.target.tagName === 'BUTTON' || win.classList.contains('maximized')) return;
-        const edge = detectEdge(e, win);
-        
-        if (edge) {
-          isResizing = true;
-          resizeEdge = edge;
-          currentWin = win;
-          bringToFront(win.id);
-
-          const rect = win.getBoundingClientRect();
-          startX = e.clientX;
-          startY = e.clientY;
-          startW = rect.width;
-          startH = rect.height;
-          startLeft = rect.left;
-          startTop = rect.top;
-
-          document.addEventListener('mousemove', handleWindowMove);
-          document.addEventListener('mouseup', stopWindowAction);
-          e.preventDefault();
-        }
-      });
-    });
-
-    function startDragging(e, id) {
-      if (e.target.tagName === 'BUTTON' || isResizing) return;
-
-      currentWin = document.getElementById(id);
-      if (currentWin.classList.contains('maximized')) return;
-
-      const edge = detectEdge(e, currentWin);
-      if (edge) return;
-
-      isDragging = true;
-      bringToFront(id);
-
-      const rect = currentWin.getBoundingClientRect();
-      offsetX = e.clientX - rect.left;
-      offsetY = e.clientY - rect.top;
-
-      document.addEventListener('mousemove', handleWindowMove);
-      document.addEventListener('mouseup', stopWindowAction);
-    }
-
-    function handleWindowMove(e) {
-      if (!currentWin) return;
-
-      if (isDragging) {
-        const winRect = currentWin.getBoundingClientRect();
-        const maxX = window.innerWidth - winRect.width;
-        const maxY = window.innerHeight - winRect.height - 50;
-
-        let newX = e.clientX - offsetX;
-        let newY = e.clientY - offsetY;
-
-        newX = Math.max(0, Math.min(newX, maxX));
-        newY = Math.max(0, Math.min(newY, maxY));
-
-        currentWin.style.left = `${newX}px`;
-        currentWin.style.top = `${newY}px`;
-        currentWin.style.margin = '0';
-      } else if (isResizing) {
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-
-        let newW = startW;
-        let newH = startH;
-        let newLeft = startLeft;
-        let newTop = startTop;
-
-        const minW = 300, minH = 200;
-        const maxW = window.innerWidth - 20;
-        const maxH = window.innerHeight - 70;
-
-        if (resizeEdge.includes('e')) {
-          newW = Math.min(maxW, Math.max(minW, startW + dx));
-        }
-        if (resizeEdge.includes('s')) {
-          newH = Math.min(maxH, Math.max(minH, startH + dy));
-        }
-        if (resizeEdge.includes('w')) {
-          const possibleW = Math.max(minW, Math.min(maxW, startW - dx));
-          newLeft = startLeft + (startW - possibleW);
-          newW = possibleW;
-        }
-        if (resizeEdge.includes('n')) {
-          const possibleH = Math.max(minH, Math.min(maxH, startH - dy));
-          newTop = startTop + (startH - possibleH);
-          newH = possibleH;
-        }
-
-        currentWin.style.width = `${newW}px`;
-        currentWin.style.height = `${newH}px`;
-        currentWin.style.left = `${newLeft}px`;
-        currentWin.style.top = `${newTop}px`;
-      }
-    }
-
-    function stopWindowAction() {
-      isDragging = false;
-      isResizing = false;
-      resizeEdge = '';
-      if (currentWin) currentWin.style.removeProperty('cursor');
-      currentWin = null;
-      document.removeEventListener('mousemove', handleWindowMove);
-      document.removeEventListener('mouseup', stopWindowAction);
-    }
-
-    function startDraggingTouch(e, id) {
-      if (e.target.tagName === 'BUTTON' || e.touches.length === 0) return;
-      currentWin = document.getElementById(id);
-      if (currentWin.classList.contains('maximized')) return;
-
-      isDragging = true;
-      bringToFront(id);
-
-      const touch = e.touches[0];
-      const rect = currentWin.getBoundingClientRect();
-      offsetX = touch.clientX - rect.left;
-      offsetY = touch.clientY - rect.top;
-
-      document.addEventListener('touchmove', onDragTouch, { passive: false });
-      document.addEventListener('touchend', stopDraggingTouch);
-    }
-
-    function onDragTouch(e) {
-      if (!isDragging || !currentWin || e.touches.length === 0) return;
-      e.preventDefault();
-      const touch = e.touches[0];
-
-      const winRect = currentWin.getBoundingClientRect();
-      const maxX = window.innerWidth - winRect.width;
-      const maxY = window.innerHeight - winRect.height - 50;
-
-      let newX = touch.clientX - offsetX;
-      let newY = touch.clientY - offsetY;
-
-      newX = Math.max(0, Math.min(newX, maxX));
-      newY = Math.max(0, Math.min(newY, maxY));
-
-      currentWin.style.left = `${newX}px`;
-      currentWin.style.top = `${newY}px`;
-      currentWin.style.margin = '0';
-    }
-
-    function stopDraggingTouch() {
-      isDragging = false;
-      currentWin = null;
-      document.removeEventListener('touchmove', onDragTouch);
-      document.removeEventListener('touchend', stopDraggingTouch);
-    }
-  </script>
-
-</body>
-</html>
-        
+/* ==========================================
+   1. REGISTRO DE TIPOGRAFÍAS LOCALES
+   ========================================== */
+@font-face {
+  font-family: 'Basenji';
+  src: url('fonts/Basenji-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('fonts/BebasNeue-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RobotoLocal';
+  src: url('fonts/Roboto-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+/* ==========================================
+   2. PALETA DE COLORES RETRO CON TRANSLUCIDEZ
+   ========================================== */
+:root {
+  --gris-azulado: #2f2d3b;             /* Fondo del escritorio y boot screen */
+  --casi-negro: rgba(23, 23, 25, 0.65); /* Ventanas traslúcidas */
+  --casi-negro-solido: #171719;        /* Color sólido de respaldo */
+  --turquesa: #8dccbb;                 /* Bordes, títulos y acentos */
+  --lavanda: #e0dfed;                   /* Textos y detalles */
+}
+
+/* ==========================================
+   3. ESTILOS GENERALES
+   ========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+body {
+  background-color: var(--gris-azulado);
+  color: var(--lavanda);
+  font-family: 'RobotoLocal', sans-serif;
+  line-height: 1.5;
+  cursor: url('images/mat pag/cursor.png') 0 0, url('images/mat pag/cursor.svg') 0 0, auto;
+  perspective: 1200px;
+}
+
+button, a, .window-header, .desktop-icon, .taskbar-tab {
+  cursor: url('images/mat pag/cursor.png') 0 0, url('images/mat pag/cursor.svg') 0 0, pointer;
+}
+
+/* ==========================================
+   3.5 PANTALLA DE INICIO (BOOT / SPLASH SCREEN)
+   ========================================== */
+.boot-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--gris-azulado);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  user-select: none;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.boot-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.boot-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.boot-logo {
+  max-width: 420px;
+  width: 85vw;
+  height: auto;
+  object-fit: contain;
+  filter: none;
+}
+
+.boot-text {
+  font-family: 'BebasNeue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--turquesa);
+  letter-spacing: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dots {
+  display: inline-block;
+  width: 1.5ch;
+  text-align: left;
+}
+
+.dots::after {
+  content: '';
+  display: inline-block;
+  animation: ellipsis 1.5s infinite steps(4, jump-none);
+}
+
+@keyframes ellipsis {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+  100% { content: ''; }
+}
+
+/* ==========================================
+   4. CANVAS, ILUSTRACIÓN Y LUZ REACTIVA
+   ========================================== */
+#grid-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.bg-illustration-wrapper {
+  position: fixed;
+  bottom: 50px;
+  right: 0;
+  z-index: 1;
+  pointer-events: auto;
+  user-select: none;
+  transform: translate(18%, 10%);
+  display: inline-block;
+}
+
+.bg-illustration {
+  width: 720px;
+  height: auto;
+  opacity: 0.85;
+  transform-origin: bottom center;
+  animation: squashStretch 5.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  transition: filter 0.25s ease, transform 0.1s ease;
+  pointer-events: auto;
+  position: relative;
+}
+
+.bg-illustration-wrapper:hover .bg-illustration {
+  filter: drop-shadow(0 0 16px rgba(141, 204, 187, 0.65)) 
+          drop-shadow(0 0 32px rgba(141, 204, 187, 0.35));
+}
+
+.bg-illustration.is-wiggling {
+  animation: fastWiggle 0.5s ease-in-out !important;
+}
+
+@keyframes fastWiggle {
+  0%   { transform: translateX(0) rotate(0deg); }
+  15%  { transform: translateX(-16px) rotate(-4deg); }
+  30%  { transform: translateX(16px) rotate(4deg); }
+  45%  { transform: translateX(-12px) rotate(-2deg); }
+  60%  { transform: translateX(12px) rotate(2deg); }
+  75%  { transform: translateX(-6px) rotate(-1deg); }
+  90%  { transform: translateX(6px) rotate(1deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+@keyframes squashStretch {
+  0%, 100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  30% {
+    transform: translateY(-12px) scale(0.97, 1.04);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.01, 0.99);
+  }
+  65% {
+    transform: translateY(4px) scale(1.04, 0.96);
+  }
+  80% {
+    transform: translateY(-3px) scale(0.99, 1.02);
+  }
+}
+
+h1, h2 {
+  font-family: 'Basenji', sans-serif;
+}
+
+h3, h4, .window-title, .window-title-accent, .icon-label, .taskbar-tab, .tools-section-title, .exp-section-title, .subgroup-title {
+  font-family: 'BebasNeue', sans-serif;
+  letter-spacing: 1px;
+}
+
+.desktop {
+  padding: 30px;
+  width: 100vw;
+  height: calc(100vh - 50px);
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.desktop > * {
+  pointer-events: auto;
+}
+
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  max-height: calc(100vh - 120px);
+  gap: 20px 25px;
+  align-items: flex-start;
+}
+
+.desktop-icon {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 95px;
+  color: var(--lavanda);
+}
+
+.icon-graphic {
+  width: 54px;
+  height: 54px;
+  background-color: transparent;
+  border: 2px solid var(--turquesa);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 3px 3px 0px var(--casi-negro-solido);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  padding: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.desktop-icon:hover .icon-graphic {
+  background-color: rgba(141, 204, 187, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px var(--turquesa), 3px 3px 0px var(--casi-negro-solido);
+}
+
+.desktop-icon.is-open .icon-graphic {
+  border-color: var(--turquesa);
+  box-shadow: 0 0 10px var(--turquesa), 3px 3px 0px var(--casi-negro-solido);
+  background-color: rgba(141, 204, 187, 0.2);
+}
+
+.desktop-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  position: relative;
+  z-index: 1;
+}
+
+.icon-label {
+  font-size: 1rem;
+  text-align: center;
+  color: var(--lavanda);
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+/* ==========================================
+   5. VENTANAS FLOTANTES Y ESTRUCTURA BASE
+   ========================================== */
+.window {
+  background-color: var(--casi-negro);
+  border: 2px solid var(--turquesa);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.6);
+  border-radius: 2px;
+  overflow: hidden;
+  position: absolute;
+  backdrop-filter: blur(3px);
+  transition: box-shadow 0.2s ease;
+  transform-style: preserve-3d;
+  
+  min-width: 290px;
+  min-height: 200px;
+  max-width: calc(100vw - 20px);
+  max-height: calc(100vh - 65px);
+}
+
+.window-modal:hover {
+  box-shadow: 0 0 12px var(--turquesa), 6px 6px 0px rgba(0, 0, 0, 0.6) !important;
+}
+
+.window-modal {
+  display: none;
+  z-index: 10;
+}
+
+.window-modal.active {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.window-modal.minimized {
+  display: none !important;
+}
+
+.window-modal.maximized {
+  top: 5px !important;
+  left: 5px !important;
+  width: calc(100vw - 10px) !important;
+  height: calc(100vh - 60px) !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  resize: none !important;
+}
+
+.window-header {
+  background-color: rgba(23, 23, 25, 0.85);
+  color: var(--lavanda);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--turquesa);
+  user-select: none;
+  touch-action: none;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.window-title {
+  font-size: 1.1rem;
+  color: var(--turquesa);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.window-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.window-controls button {
+  background-color: rgba(23, 23, 25, 0.8);
+  color: var(--turquesa);
+  border: 1px solid var(--turquesa);
+  font-weight: bold;
+  padding: 2px 8px;
+  font-size: 0.9rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  min-width: 24px;
+}
+
+.window-controls button:hover {
+  background-color: var(--turquesa);
+  color: var(--casi-negro-solido);
+}
+
+.window-body {
+  padding: 20px;
+  background-color: transparent;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ==========================================
+   5.5 ANIMACIONES TEMÁTICAS
+   ========================================== */
+.anim-card-drop.active { animation: cardDropIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.anim-card-drop.is-closing { animation: cardDropOut 0.3s ease-in forwards; }
+
+@keyframes cardDropIn {
+  from { opacity: 0; transform: translateY(-70px) rotate(-3deg) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+}
+@keyframes cardDropOut {
+  from { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+  to { opacity: 0; transform: translateY(60px) rotate(4deg) scale(0.85); }
+}
+
+.anim-toolbox-pop.active { animation: toolboxIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+.anim-toolbox-pop.is-closing { animation: toolboxOut 0.3s ease-in forwards; }
+
+@keyframes toolboxIn {
+  0% { opacity: 0; transform: scale(0.4) rotate(-8deg); }
+  70% { transform: scale(1.04) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes toolboxOut {
+  0% { opacity: 1; transform: scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: scale(0.3) rotate(12deg); }
+}
+
+.anim-timeline-slide.active { animation: timelineIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.anim-timeline-slide.is-closing { animation: timelineOut 0.3s ease-in forwards; }
+
+@keyframes timelineIn {
+  from { opacity: 0; transform: translateX(-90px) skewX(-2deg); }
+  to { opacity: 1; transform: translateX(0) skewX(0deg); }
+}
+@keyframes timelineOut {
+  from { opacity: 1; transform: translateX(0) skewX(0deg); }
+  to { opacity: 0; transform: translateX(100px) skewX(3deg); }
+}
+
+.anim-spatial-3d.active { animation: spatial3DIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.anim-spatial-3d.is-closing { animation: spatial3DOut 0.32s ease-in forwards; }
+
+@keyframes spatial3DIn {
+  from { opacity: 0; transform: perspective(800px) rotateX(45deg) rotateY(-35deg) translateZ(-200px) scale(0.6); }
+  to { opacity: 1; transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1); }
+}
+@keyframes spatial3DOut {
+  from { opacity: 1; transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1); }
+  to { opacity: 0; transform: perspective(800px) rotateX(-35deg) rotateY(45deg) translateZ(-250px) scale(0.5); }
+}
+
+.anim-editorial-unfold.active { animation: editorialIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; transform-origin: center center; }
+.anim-editorial-unfold.is-closing { animation: editorialOut 0.3s ease-in forwards; transform-origin: center center; }
+
+@keyframes editorialIn {
+  from { opacity: 0; transform: perspective(600px) rotateY(-30deg) scale(0.85); }
+  to { opacity: 1; transform: perspective(600px) rotateY(0deg) scale(1); }
+}
+@keyframes editorialOut {
+  from { opacity: 1; transform: perspective(600px) rotateY(0deg) scale(1); }
+  to { opacity: 0; transform: perspective(600px) rotateY(30deg) scale(0.85); }
+}
+
+.anim-social-feed.active { animation: socialFeedIn 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+.anim-social-feed.is-closing { animation: socialFeedOut 0.3s ease-in forwards; }
+
+@keyframes socialFeedIn {
+  0% { opacity: 0; transform: translateY(60px) scale(0.7); }
+  75% { transform: translateY(-8px) scale(1.03); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes socialFeedOut {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-50px) scale(0.6); }
+}
+
+.anim-sketch-draw.active { animation: sketchIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.anim-sketch-draw.is-closing { animation: sketchOut 0.3s ease-in forwards; }
+
+@keyframes sketchIn {
+  from { opacity: 0; transform: translate(-50px, -50px) rotate(-4deg) scale(0.85); }
+  to { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
+}
+@keyframes sketchOut {
+  from { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
+  to { opacity: 0; transform: translate(60px, 60px) rotate(5deg) scale(0.8); }
+}
+
+.anim-message-open.active { animation: messageIn 0.32s ease-out forwards; }
+.anim-message-open.is-closing { animation: messageOut 0.3s ease-in forwards; }
+
+@keyframes messageIn {
+  from { opacity: 0; filter: blur(8px); transform: scale(0.7); }
+  to { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+@keyframes messageOut {
+  from { opacity: 1; filter: blur(0); transform: scale(1); }
+  to { opacity: 0; filter: blur(10px); transform: scale(1.15); }
+}
+
+/* ==========================================
+   ESTILOS ESPECÍFICOS: SOBRE MÍ
+   ========================================== */
+.about-profile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.profile-header-grid {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 2px solid var(--turquesa);
+  padding-bottom: 16px;
+}
+
+.profile-photo-frame {
+  width: 110px;
+  height: 110px;
+  border: 2px solid var(--turquesa);
+  box-shadow: 3px 3px 0px var(--casi-negro-solido);
+  flex-shrink: 0;
+  overflow: hidden;
+  background-color: var(--casi-negro-solido);
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-intro h1 {
+  font-size: 1.8rem;
+  color: var(--turquesa);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.profile-subtitle {
+  font-family: 'BebasNeue', sans-serif;
+  font-size: 1.3rem;
+  color: var(--lavanda);
+  letter-spacing: 1.5px;
+  display: block;
+}
+
+.profile-degree {
+  font-size: 0.9rem;
+  color: rgba(224, 223, 237, 0.85);
+  margin-top: 4px;
+}
+
+.bio-box {
+  margin-top: 5px;
+  border: 1px solid var(--turquesa);
+  padding: 15px;
+  background-color: rgba(47, 45, 59, 0.35);
+  backdrop-filter: blur(2px);
+}
+
+.bio-box p {
+  margin-bottom: 8px;
+}
+
+.bio-box p:last-child {
+  margin-bottom: 0;
+}
+
+.about-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.detail-card {
+  border: 1px solid var(--turquesa);
+  padding: 12px;
+  background-color: rgba(47, 45, 59, 0.35);
+  backdrop-filter: blur(2px);
+}
+
+.detail-card h3 {
+  color: var(--turquesa);
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.detail-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.detail-card ul li {
+  font-size: 0.9rem;
+  position: relative;
+  padding-left: 14px;
+  margin-bottom: 4px;
+}
+
+.detail-card ul li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--turquesa);
+  font-family: 'BebasNeue', sans-serif;
+}
+
+/* ==========================================
+   ESTILOS ESPECÍFICOS: HERRAMIENTAS
+   ========================================== */
+.tools-container-body {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.tools-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tools-section-title {
+  color: var(--turquesa);
+  font-size: 1.35rem;
+  border-bottom: 1px dashed var(--turquesa);
+  padding-bottom: 4px;
+  letter-spacing: 1px;
+}
+
+.tools-grid-v2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.tool-card-v2 {
+  border: 1px solid var(--turquesa);
+  background-color: rgba(47, 45, 59, 0.4);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  backdrop-filter: blur(3px);
+  box-shadow: 3px 3px 0px var(--casi-negro-solido);
+}
+
+.tool-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tool-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+  border: 1px solid rgba(141, 204, 187, 0.4);
+  padding: 2px;
+  background-color: rgba(23, 23, 25, 0.6);
+}
+
+.tool-icon-placeholder {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--turquesa);
+  background-color: var(--casi-negro-solido);
+  color: var(--turquesa);
+  font-family: 'BebasNeue', sans-serif;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.tool-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tool-info h3 {
+  color: var(--lavanda);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.tool-score {
+  font-family: 'BebasNeue', sans-serif;
+  color: var(--turquesa);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+
+.learning-tag {
+  font-family: 'BebasNeue', sans-serif;
+  color: #ffb86c;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.battery-bar {
+  display: flex;
+  gap: 3px;
+  height: 14px;
+  background-color: rgba(23, 23, 25, 0.8);
+  border: 1px solid var(--turquesa);
+  padding: 2px;
+}
+
+.battery-cell {
+  flex: 1;
+  background-color: rgba(141, 204, 187, 0.12);
+  border-radius: 1px;
+  transition: background-color 0.2s ease;
+}
+
+.battery-cell.filled {
+  background-color: var(--turquesa);
+  box-shadow: 0 0 4px var(--turquesa);
+}
+
+.tool-tasks {
+  list-style: none;
+  padding: 0;
+  margin-top: 2px;
+}
+
+.tool-tasks li {
+  font-size: 0.85rem;
+  color: rgba(224, 223, 237, 0.85);
+  position: relative;
+  padding-left: 12px;
+  margin-bottom: 2px;
+}
+
+.tool-tasks li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--turquesa);
+}
+
+.learning-card {
+  border-style: dashed;
+}
+
+/* ==========================================
+   ESTILOS ESPECÍFICOS: EXPERIENCIA Y ESTUDIOS
+   ========================================== */
+.experience-container-body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.exp-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.exp-section-title {
+  color: var(--turquesa);
+  font-size: 1.4rem;
+  border-bottom: 1px dashed var(--turquesa);
+  padding-bottom: 4px;
+  letter-spacing: 1px;
+}
+
+.timeline-v2 {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.timeline-card {
+  border: 1px solid var(--turquesa);
+  background-color: rgba(47, 45, 59, 0.4);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  backdrop-filter: blur(3px);
+  box-shadow: 3px 3px 0px var(--casi-negro-solido);
+}
+
+.timeline-card.active-job {
+  border-color: var(--turquesa);
+  box-shadow: 0 0 10px rgba(141, 204, 187, 0.3), 3px 3px 0px var(--casi-negro-solido);
+}
+
+.timeline-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.timeline-card-header h3 {
+  color: var(--turquesa);
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.job-badge {
+  font-family: 'BebasNeue', sans-serif;
+  background-color: var(--turquesa);
+  color: var(--casi-negro-solido);
+  padding: 2px 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.job-date {
+  font-family: 'BebasNeue', sans-serif;
+  color: var(--lavanda);
+  font-size: 0.95rem;
+  opacity: 0.85;
+  letter-spacing: 1px;
+}
+
+.job-role {
+  font-size: 0.9rem;
+  color: rgba(224, 223, 237, 0.75);
+  font-style: italic;
+}
+
+.job-tasks {
+  list-style: none;
+  padding: 0;
+  margin-top: 4px;
+}
+
+.job-tasks li {
+  font-size: 0.9rem;
+  color: var(--lavanda);
+  position: relative;
+  padding-left: 14px;
+  margin-bottom: 3px;
+}
+
+.job-tasks li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--turquesa);
+  font-family: 'BebasNeue', sans-serif;
+}
+
+.academic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.academic-card {
+  border: 1px solid var(--turquesa);
+  background-color: rgba(47, 45, 59, 0.4);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 3px 3px 0px var(--casi-negro-solido);
+  backdrop-filter: blur(3px);
+}
+
+.academic-card.highlight-card {
+  border-width: 2px;
+  box-shadow: 0 0 8px rgba(141, 204, 187, 0.25), 3px 3px 0px var(--casi-negro-solido);
+}
+
+.academic-date {
+  font-family: 'BebasNeue', sans-serif;
+  color: var(--turquesa);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+
+.academic-card h3 {
+  color: var(--turquesa);
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.academic-degree {
+  font-size: 0.9rem;
+  color: var(--lavanda);
+}
+
+/* ==========================================
+   ESTRUCTURA DE COLUMNAS Y TARJETAS CORPORATIVAS
+   ========================================== */
+
+.projects-two-columns {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.column-brand {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.brand-column-header {
+  border-bottom: 2px solid var(--turquesa);
+  padding-bottom: 6px;
+}
+
+.brand-column-header h2 {
+  font-size: 1.6rem;
+  color: var(--turquesa);
+  font-family: 'BebasNeue', sans-serif;
+  letter-spacing: 1.5px;
+}
+
+.project-block {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  position: relative;
+  clear: both;
+}
+
+.block-subgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: rgba(23, 23, 25, 0.35);
+  border: 1px solid rgba(141, 204, 187, 0.25);
+  padding: 12px;
+  width: 100%;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.subgroup-title {
+  color: var(--turquesa);
+  font-size: 1.15rem;
+  border-bottom: 1px solid rgba(141, 204, 187, 0.3);
+  padding-bottom: 4px;
+}
+
+.grid-proyectos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.sub-window {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  max-width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background-color: var(--casi-negro);
+  border: 2px solid var(--turquesa);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.clickable-card {
+  user-select: none;
+  cursor: pointer;
+}
+
+.clickable-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 12px var(--turquesa), 4px 4px 0px var(--casi-negro-solido);
+}
+
+.card-header-accent {
+  background-color: var(--turquesa);
+  border-bottom: none;
+  padding: 6px 10px;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.window-title-accent {
+  color: var(--casi-negro-solido);
+  font-size: 0.95rem;
+  font-weight: bold;
+  white-space: normal !important;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.card-body {
+  padding: 10px;
+  background-color: rgba(23, 23, 25, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+  height: auto !important;
+}
+
+/* ESCALADO PROPORCIONAL DE IMÁGENES */
+.card-body img {
+  width: 100%;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1.5px solid var(--turquesa);
+  background-color: var(--casi-negro-solido);
+  flex-shrink: 0;
+}
+
+.card-body h3 {
+  font-size: 1.05rem;
+  color: var(--turquesa);
+  margin-top: 4px;
+}
+
+.card-body p {
+  font-size: 0.82rem;
+  color: rgba(224, 223, 237, 0.9);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+/* ESTILOS ESPECÍFICOS PARA TARJETAS PDF */
+.pdf-card {
+  border-color: rgba(141, 204, 187, 0.7);
+}
+
+.pdf-icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background-color: rgba(23, 23, 25, 0.75);
+  border: 1.5px dashed var(--turquesa);
+  text-decoration: none;
+  color: var(--lavanda);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.pdf-icon-wrapper:hover {
+  background-color: rgba(141, 204, 187, 0.15);
+  border-style: solid;
+}
+
+.pdf-badge {
+  background-color: #e74c3c;
+  color: #ffffff;
+  font-family: 'BebasNeue', sans-serif;
+  font-size: 1.4rem;
+  padding: 4px 12px;
+  letter-spacing: 1.5px;
+  box-shadow: 2px 2px 0px var(--casi-negro-solido);
+}
+
+.pdf-filename {
+  font-size: 0.8rem;
+  color: var(--turquesa);
+  word-break: break-all;
+  text-align: center;
+  padding: 0 6px;
+}
+
+/* ==========================================
+   ESTILOS ESPECÍFICOS: CONTACTO
+   ========================================== */
+.contact-window-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-heading {
+  font-family: 'BebasNeue', sans-serif;
+  color: var(--turquesa);
+  font-size: 1.5rem;
+  letter-spacing: 1.5px;
+  border-bottom: 2px solid var(--turquesa);
+  padding-bottom: 4px;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* CARDA PRINCIPAL: WHATSAPP EN RECTÁNGULO TURQUESA */
+.contact-card-primary {
+  background-color: var(--turquesa);
+  color: var(--casi-negro-solido);
+  border: 2px solid var(--casi-negro-solido);
+  padding: 14px 16px;
+  box-shadow: 4px 4px 0px var(--casi-negro-solido);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-card-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px var(--turquesa), 4px 4px 0px var(--casi-negro-solido);
+}
+
+.contact-type-label {
+  font-family: 'BebasNeue', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+}
+
+.contact-card-primary .contact-type-label {
+  color: #111113;
+}
+
+.contact-main-value {
+  font-family: 'BebasNeue', sans-serif;
+  font-size: 2.1rem;
+  line-height: 1;
+  letter-spacing: 2px;
+  color: #0d0d0f;
+  font-weight: bold;
+}
+
+/* CARDA SECUNDARIA: CORREO ELECTRÓNICO */
+.contact-card-secondary {
+  border: 1px solid var(--turquesa);
+  background-color: rgba(47, 45, 59, 0.45);
+  padding: 12px 16px;
+  box-shadow: 3px 3px 0px var(--casi-negro-solido);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact-card-secondary .contact-type-label {
+  color: var(--turquesa);
+  font-size: 0.95rem;
+}
+
+.contact-sec-value {
+  font-size: 1.05rem;
+  color: var(--lavanda);
+  word-break: break-all;
+}
+
+/* ==========================================
+   MODAL / PROYECCIÓN POR CLIC
+   ========================================== */
+.lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 15, 18, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 99990;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox-modal.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  position: relative;
+  width: 90%;
+  max-width: 680px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.85) perspective(800px) rotateX(15deg);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 25px var(--turquesa), 8px 8px 0px rgba(0, 0, 0, 0.8) !important;
+}
+
+.lightbox-modal.visible .lightbox-content {
+  transform: scale(1) perspective(800px) rotateX(0deg);
+}
+
+.lightbox-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: auto;
+}
+
+.lightbox-body img {
+  width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  border: 2px solid var(--turquesa);
+  background-color: var(--casi-negro-solido);
+  box-shadow: 0 0 10px rgba(141, 204, 187, 0.3);
+}
+
+.lightbox-details h3 {
+  font-size: 1.4rem;
+  color: var(--turquesa);
+}
+
+.lightbox-details p {
+  font-size: 1rem;
+  color: var(--lavanda);
+  margin-top: 4px;
+}
+
+/* ==========================================
+   6. BARRA DE TAREAS INFERIOR
+   ========================================== */
+.taskbar-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: rgba(224, 223, 237, 0.92);
+  backdrop-filter: blur(6px);
+  color: var(--casi-negro-solido);
+  padding: 4px 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: 2px solid var(--turquesa);
+  z-index: 9999;
+}
+
+.start-logo-btn {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.start-logo-btn:hover {
+  transform: scale(1.05);
+}
+
+.start-logo-img {
+  height: 34px;
+  width: auto;
+  object-fit: contain;
+}
+
+.active-tasks {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+  margin-left: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.taskbar-tab {
+  background-color: var(--lavanda);
+  color: var(--casi-negro-solido);
+  border: 2px solid var(--casi-negro-solido);
+  width: 38px;
+  height: 38px;
+  padding: 4px;
+  box-shadow: 2px 2px 0px var(--casi-negro-solido);
+  flex-shrink: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.15s ease;
+}
+
+.taskbar-tab-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.taskbar-tab.active-tab {
+  background-color: var(--casi-negro-solido);
+  border-color: var(--turquesa);
+  transform: translateY(1px);
+  box-shadow: 1px 1px 0px var(--casi-negro-solido);
+}
+
+/* ==========================================
+   7. MEDIA QUERIES PARA PANTALLAS PEQUEÑAS
+   ========================================== */
+@media (max-width: 900px) {
+  .projects-two-columns {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .bg-illustration {
+    width: 380px;
+  }
+
+  .profile-header-grid {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .desktop-icons {
+    max-height: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .window-modal {
+    min-width: 280px;
+    max-width: 94vw;
+  }
+
+  .window-body {
+    padding: 15px;
+  }
+
+  .profile-intro h1 {
+    font-size: 1.5rem;
+  }
+
+  .tools-grid-v2 {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-main-value {
+    font-size: 1.6rem;
+  }
+}
