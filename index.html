@@ -1,3 +1,8 @@
+
+
+
+Ícono de TXT
+index
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -3101,6 +3106,25 @@
       document.removeEventListener('touchmove', onDragTouch);
       document.removeEventListener('touchend', stopDraggingTouch);
     }
+
+    /* ==========================================
+       SOPORTE TÁCTIL IPHONE SAFARI EN BOTONES DE VENTANA
+       ========================================== */
+    document.querySelectorAll('.window-controls button').forEach(btn => {
+      btn.addEventListener('touchstart', (e) => {
+        e.stopPropagation();
+      }, { passive: true });
+
+      btn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const touch = e.changedTouches[0];
+        const targetEl = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (targetEl === btn || btn.contains(targetEl)) {
+          btn.click();
+        }
+      });
+    });
   </script>
 
 </body>
